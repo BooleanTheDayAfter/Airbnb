@@ -1,5 +1,7 @@
 <template>
 
+<div class="dashboard-component-container">
+
   <section class="dashboard-control-container">
 
     <h2>Dashboard</h2>
@@ -18,6 +20,14 @@
                     <span class="">Modifica informazioni personali</span>
 
             </button> -->
+
+            <button v-on:click="getUserInfo()">
+
+                  <i class="fas fa-house-user"></i>
+                  <span class="">Info Personali</span>
+
+            </button>
+
 
         </li>
 
@@ -66,26 +76,61 @@
     </ul>
   </section>
 
+  <section>
+
+    <ListContainer />
+
+    <ListItem  v-for="(data, index) in apartmentList "
+
+                :activestar="data.active"
+                :coverimg="'../'.concat(data.cover_img)"
+                :description="data.description"
+                :link="'window.location=`apartments/'.concat(data.id).concat('`;')"
+                :title = "data.title"
+                :rooms = "data.rooms"
+                :beds = "data.beds"
+                :bathrooms = "data.bathrooms"
+                :metri_quadrati = "data.metri_quadrati"
+                :price ="data.price"
+                :cover_img ="'../'.concat(data.cover_img)"
+                :key = "index"
+                slot = "items"
+                />
+
+          </ul>
+
+  </section>
+
+</div>
 </template>
 
 <script>
+import ListItem from './ListItem'
+import ListContainer from './ListContainer'
 
 export default{
   name: "Dashboard",
+
   props:['user'],
 
+  components:{
+    ListItem,
+    ListContainer,
+  },
 
   data(){
           return{
 
+            apartmentList:[],
             userId:this.user.id,
+            userInfo:this.user,
 
           }
   },
 
   methods:{
     getIndex: function(){
-      axios.post("http://localhost:8000/api/admin/apartments",
+      axios.post("http://localhost:8000/api/user/apartments",
       {
         "id":this.userId,
 
@@ -98,24 +143,50 @@ export default{
     )
       .then(response => {
           console.log(response)
+          this.apartmentList = response.data.apartments
+          console.log(this.apartmentList)
       })
     },
+
+    getUserInfo: function(){
+      axios.post("http://localhost:8000/api/user/info",
+      {
+        "id":this.userId,
+
+      },
+      {
+        headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        }
+      },
+    )
+    .then(response => {
+        console.log(response)
+    })
+
+    .catch((e) => {
+        console.log("Caught", e);
+    })
+
+    }
+
   },
 
   created() {
 
-
     console.log(this.userId)
-
+    console.log(this.userInfo)
 
   },
-
 }
 
 
 </script>
 
 <style>
+.dashboard-component-container{
+  display:flex;
+}
 
 .dashboard-control-container{
   border:2px solid red;

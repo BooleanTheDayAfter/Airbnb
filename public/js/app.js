@@ -1955,6 +1955,8 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ListItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ListItem */ "./resources/js/components/ListItem.vue");
+/* harmony import */ var _ListContainer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListContainer */ "./resources/js/components/ListContainer.vue");
 //
 //
 //
@@ -2025,17 +2027,63 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Dashboard",
   props: ['user'],
+  components: {
+    ListItem: _ListItem__WEBPACK_IMPORTED_MODULE_0__["default"],
+    ListContainer: _ListContainer__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   data: function data() {
     return {
-      userId: this.user.id
+      apartmentList: [],
+      userId: this.user.id,
+      userInfo: this.user
     };
   },
   methods: {
     getIndex: function getIndex() {
-      axios.post("http://localhost:8000/api/admin/apartments", {
+      var _this = this;
+
+      axios.post("http://localhost:8000/api/user/apartments", {
         "id": this.userId
       }, {
         headers: {
@@ -2043,11 +2091,27 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (response) {
         console.log(response);
+        _this.apartmentList = response.data.apartments;
+        console.log(_this.apartmentList);
+      });
+    },
+    getUserInfo: function getUserInfo() {
+      axios.post("http://localhost:8000/api/user/info", {
+        "id": this.userId
+      }, {
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      }).then(function (response) {
+        console.log(response);
+      })["catch"](function (e) {
+        console.log("Caught", e);
       });
     }
   },
   created: function created() {
     console.log(this.userId);
+    console.log(this.userInfo);
   }
 });
 
@@ -2254,10 +2318,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ListItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ListItem */ "./resources/js/components/ListItem.vue");
 /* harmony import */ var _ListContainer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListContainer */ "./resources/js/components/ListContainer.vue");
 /* harmony import */ var _Mapp_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Mapp.vue */ "./resources/js/components/Mapp.vue");
-//
-//
-//
-//
 //
 //
 //
@@ -29864,7 +29924,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.dashboard-control-container{\n  border:2px solid red;\n  width:200px;\n}\n.button-list-container{\n  flex-direction: column;\n  justify-content: space-between;\n  list-style: none;\n}\n.button-list-container li{\n    display:flex;\n    height:40px;\n    margin-top:15px;\n}\n.button-list-container li  button{\n      border-radius: 5px;\n      background-color: white;\n      color:$bnbpink;\n      border:2px solid lightgrey;\n      width:250px;\n}\n\n\n", ""]);
+exports.push([module.i, "\n.dashboard-component-container{\n  display:flex;\n}\n.dashboard-control-container{\n  border:2px solid red;\n  width:200px;\n}\n.button-list-container{\n  flex-direction: column;\n  justify-content: space-between;\n  list-style: none;\n}\n.button-list-container li{\n    display:flex;\n    height:40px;\n    margin-top:15px;\n}\n.button-list-container li  button{\n      border-radius: 5px;\n      background-color: white;\n      color:$bnbpink;\n      border:2px solid lightgrey;\n      width:250px;\n}\n\n\n", ""]);
 
 // exports
 
@@ -29940,7 +30000,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .results-container{\n  height:100%;\n  border:2px solid pink;\n\n} */\n.row[data-v-b9c20fb8]{\n  height:calc(100vh - 100px);\n  overflow-y: hidden;\n}\n.sistemazione[data-v-b9c20fb8]{\n  margin-top:25px;\n}\n.filter-results[data-v-b9c20fb8]{\n  border:2px solid red;\n  height:100%;\n  padding-left:20px;\n  padding-right:20px;\n  flex:1;\n}\n.service-filters[data-v-b9c20fb8]{\n  justify-content: space-between;\n  display:none;\n}\n.toggle-services-button-container[data-v-b9c20fb8]{\n  width:100%;\n  height:20px;\n  margin-bottom: 10px;\n}\n.toggle-services-button[data-v-b9c20fb8]{\n  height:100%;\n  width:100%;\n  border:1px solid lightgrey;\n  background-color: white;\n  border-radius: 10px;\n}\n.services-filters[data-v-b9c20fb8]{\n  margin-top:15px;\n  display: flex;\n  justify-content:space-between;\n}\n.results-list[data-v-b9c20fb8]{\n  border:2px solid green;\n  /* height:100%; */\n  height:calc(100% - 150px);\n  /* overflow-y: hidden; */\n  overflow-y: scroll;\n  border-top:1px solid lightgrey;\n}\nul[data-v-b9c20fb8]{\n  list-style: none;\n  display:flex;\n  flex-wrap: wrap;\n  width:100%;\n}\nul li[data-v-b9c20fb8]{\n  display: flex;\n  flex-wrap: nowrap;\n  align-items: center;\n  height:40px;\n  line-height: 40px;\n}\nul li label[data-v-b9c20fb8]{\n  margin-left:5px;\n}\n.basic-filters[data-v-b9c20fb8]{\n  justify-content: space-between;\n}\n.basic-filters label[data-v-b9c20fb8]{\n  line-height: 40px;\n}\n.basic-filters input[data-v-b9c20fb8]{\n  margin-left:5px;\n  border:1px solid lightgrey;\n  border-radius: 10px;\n  height:30px;\n  width:30px;\n}\n.basic-filters li[data-v-b9c20fb8]{\n  margin-top: 10px;\n};\n.search-results[data-v-b9c20fb8] {\n  width: 55%;\n  padding: 3em;\n  padding-right: 1em;\n}\n.search-results h1[data-v-b9c20fb8] {\n  margin-bottom: 1.1em;\n}\n.search-results .search-filters ul button[data-v-b9c20fb8]:hover {\n  border: 1px solid black;\n}\n.mappa-container[data-v-b9c20fb8]{\n  flex:1;\n}\n.noresult-container[data-v-b9c20fb8]{\n  height:50%;\n  width:100%;\n  position: relative;\n}\n.no-results[data-v-b9c20fb8]{\n  position: absolute;\n  top:50%;\n  left:50%;\n  transform:translate(-50%,-50%)\n}\n\n/* .search-component-apartments-card:last-child{\n  margin-bottom: 500px;\n} */\n@media screen and (max-width: 960px) {\n.mappa-container[data-v-b9c20fb8]{\n  display:none;\n}\n}\n@media screen and (max-width: 768px) {\n}\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .results-container{\n  height:100%;\n  border:2px solid pink;\n\n} */\n.row[data-v-b9c20fb8]{\n  height:calc(100vh - 100px);\n  overflow-y: hidden;\n}\n.sistemazione[data-v-b9c20fb8]{\n  margin-top:25px;\n}\n.filter-results[data-v-b9c20fb8]{\n  border:2px solid red;\n  height:100%;\n  padding-left:20px;\n  padding-right:20px;\n  flex:1;\n}\n.service-filters[data-v-b9c20fb8]{\n  justify-content: space-between;\n  display:none;\n}\n.toggle-services-button-container[data-v-b9c20fb8]{\n  width:100%;\n  height:20px;\n  margin-bottom: 10px;\n}\n.toggle-services-button[data-v-b9c20fb8]{\n  height:100%;\n  width:100%;\n  border:1px solid lightgrey;\n  background-color: white;\n  border-radius: 10px;\n}\n.services-filters[data-v-b9c20fb8]{\n  margin-top:15px;\n  display: flex;\n  justify-content:space-between;\n}\n.results-list[data-v-b9c20fb8]{\n  border:2px solid green;\n  /* height:100%; */\n  height:calc(100% - 150px);\n  /* overflow-y: hidden; */\n  overflow-y: scroll;\n  border-top:1px solid lightgrey;\n}\nul[data-v-b9c20fb8]{\n  list-style: none;\n  display:flex;\n  flex-wrap: wrap;\n  width:100%;\n}\nul li[data-v-b9c20fb8]{\n  display: flex;\n  flex-wrap: nowrap;\n  align-items: center;\n  height:40px;\n  line-height: 40px;\n}\nul li label[data-v-b9c20fb8]{\n  margin-left:5px;\n}\n.basic-filters[data-v-b9c20fb8]{\n  justify-content: space-between;\n}\n.basic-filters label[data-v-b9c20fb8]{\n  line-height: 40px;\n}\n.basic-filters input[data-v-b9c20fb8]{\n  margin-left:5px;\n  border:1px solid lightgrey;\n  border-radius: 10px;\n  height:30px;\n  width:30px;\n}\n.basic-filters li[data-v-b9c20fb8]{\n  margin-top: 10px;\n};\n.search-results[data-v-b9c20fb8] {\n  width: 55%;\n  padding: 3em;\n  padding-right: 1em;\n}\n.search-results h1[data-v-b9c20fb8] {\n  margin-bottom: 1.1em;\n}\n.search-results .search-filters ul button[data-v-b9c20fb8]:hover {\n  border: 1px solid black;\n}\n.mappa-container[data-v-b9c20fb8]{\n  flex:1;\n}\n.noresult-container[data-v-b9c20fb8]{\n  height:50%;\n  width:100%;\n  position: relative;\n}\n.no-results[data-v-b9c20fb8]{\n  position: absolute;\n  top:50%;\n  left:50%;\n  transform:translate(-50%,-50%)\n}\n\n/* .search-component-apartments-card:last-child{\n  margin-bottom: 500px;\n} */\n@media screen and (max-width: 960px) {\n.mappa-container[data-v-b9c20fb8]{\n  display:none;\n}\n}\n@media screen and (max-width: 768px) {\n}\n\n", ""]);
 
 // exports
 
@@ -89293,36 +89353,83 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("section", { staticClass: "dashboard-control-container" }, [
-    _c("h2", [_vm._v("Dashboard")]),
-    _vm._v(" "),
-    _c("div", { staticClass: "dashboard-username" }),
-    _vm._v(" "),
-    _c("ul", { staticClass: "button-list-container d-flex" }, [
-      _c("li", { staticClass: "dashboard-card" }),
+  return _c("div", { staticClass: "dashboard-component-container" }, [
+    _c("section", { staticClass: "dashboard-control-container" }, [
+      _c("h2", [_vm._v("Dashboard")]),
       _vm._v(" "),
-      _c("li", { staticClass: "dashboard-card" }, [
-        _c(
-          "button",
-          {
-            on: {
-              click: function($event) {
-                return _vm.getIndex()
+      _c("div", { staticClass: "dashboard-username" }),
+      _vm._v(" "),
+      _c("ul", { staticClass: "button-list-container d-flex" }, [
+        _c("li", { staticClass: "dashboard-card" }, [
+          _c(
+            "button",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.getUserInfo()
+                }
               }
-            }
-          },
-          [
-            _c("i", { staticClass: "fas fa-house-user" }),
-            _vm._v(" "),
-            _c("span", {}, [_vm._v("I miei appartamenti")])
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "dashboard-card" }),
-      _vm._v(" "),
-      _vm._m(0)
-    ])
+            },
+            [
+              _c("i", { staticClass: "fas fa-house-user" }),
+              _vm._v(" "),
+              _c("span", {}, [_vm._v("Info Personali")])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "dashboard-card" }, [
+          _c(
+            "button",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.getIndex()
+                }
+              }
+            },
+            [
+              _c("i", { staticClass: "fas fa-house-user" }),
+              _vm._v(" "),
+              _c("span", {}, [_vm._v("I miei appartamenti")])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "dashboard-card" }),
+        _vm._v(" "),
+        _vm._m(0)
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "section",
+      [
+        _c("ListContainer"),
+        _vm._v(" "),
+        _vm._l(_vm.apartmentList, function(data, index) {
+          return _c("ListItem", {
+            key: index,
+            attrs: {
+              slot: "items",
+              activestar: data.active,
+              coverimg: "../".concat(data.cover_img),
+              description: data.description,
+              link: "window.location=`apartments/".concat(data.id).concat("`;"),
+              title: data.title,
+              rooms: data.rooms,
+              beds: data.beds,
+              bathrooms: data.bathrooms,
+              metri_quadrati: data.metri_quadrati,
+              price: data.price,
+              cover_img: "../".concat(data.cover_img)
+            },
+            slot: "items"
+          })
+        })
+      ],
+      2
+    )
   ])
 }
 var staticRenderFns = [
@@ -103757,8 +103864,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/aj/Desktop/Courses/repository/bool-airbnb/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/aj/Desktop/Courses/repository/bool-airbnb/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/aj/Desktop/Courses/repository/Airbnb/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/aj/Desktop/Courses/repository/Airbnb/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
