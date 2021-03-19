@@ -1,0 +1,328 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito);* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 1190px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.row {
+  width: 100%;
+}
+
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.jcsb {
+  justify-content: space-between;
+}
+
+.relative {
+  position: relative;
+}
+
+.mt-50 {
+  margin-top: 50px;
+}
+
+.red-border {
+  border: 2px solid red;
+}
+
+.green-border {
+  border: 2px solid green;
+}
+
+.orange-border {
+  border: 2px solid orange;
+}
+
+.black-border {
+  border: 2px solid black;
+}
+
+.blue-border {
+  border: 2px solid blue;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+}
+
+main {
+  margin-top: 100px;
+}
+
+@media screen and (max-width: 1190px) {
+  .container {
+    width: 100%;
+    padding-right: 70px;
+    padding-left: 70px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .container {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
+
+nav {
+  background-color: white;
+  width: 100%;
+}
+
+.section-nav {
+  height: 100px;
+  align-items: center;
+}
+
+.logo-container img {
+  height: 90px;
+}
+
+.search-bar-form {
+  font-size: 12px;
+  border: 1px solid lightgrey;
+  height: 60px;
+  align-items: center;
+  border-radius: 32px;
+  padding: 5px;
+}
+
+.searchbar-el {
+  margin-left: 20px;
+}
+
+.searchbar-el button {
+  height: 50px;
+  width: 50px;
+  border: 0px;
+  background-color: #FF5A60;
+  color: white;
+  font-size: 20px;
+  border-radius: 50%;
+}
+
+.searchbar-el button:hover {
+  cursor: pointer;
+  background: #d70466;
+}
+
+.searchbar-el input {
+  border: 0px;
+}
+
+.right-nav-menu-button {
+  background-color: white;
+  color: grey;
+  height: 60px;
+  border-radius: 30px;
+  border: 1px solid lightgrey;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.right-nav-menu-button .user-icon {
+  font-size: 40px;
+  margin: 10px;
+}
+
+.right-nav-menu-button .bar-icon {
+  font-size: 25px;
+  margin-left: 20px;
+}
+
+.login-list-container {
+  display: none;
+  position: absolute;
+  background-color: white;
+  top: 90px;
+  right: 0px;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  width: 112px;
+}
+
+.login-list-container ul {
+  list-style: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.login-list-container ul span {
+  padding-left: 10px;
+}
+
+.login-list-container ul li {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 10px;
+}
+
+.login-list-container ul li form button {
+  background-color: Transparent;
+  border: 0px;
+  line-height: 40px;
+  font-size: 16px;
+}
+
+.login-list-container ul li:hover {
+  background-color: lightgrey;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-el:first-child,
+  .search-bar-guest-input {
+    display: none;
+  }
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  background-image: url("/img/jumbotrone.jpg");
+  justify-content: center;
+  height: 750px;
+  background-position: bottom;
+  background-size: cover;
+}
+
+.hero .hero-title-container {
+  color: white;
+  width: 50%;
+  height: 100%;
+}
+
+.hero .hero-title-container h1 {
+  font-size: 50px;
+  line-height: 75px;
+}
+
+#sequential span {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.cities-cards-container {
+  width: 100%;
+}
+
+.cities-cards-container .city-card {
+  width: 100%;
+}
+
+.cities-cards-container .city-card button {
+  padding: 10px;
+  cursor: pointer;
+  height: 300px;
+}
+
+.cities-cards-container .city-card img {
+  border-radius: 15px;
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
+.host-poster-container {
+  height: 400px;
+  color: white;
+  background-color: #FF5A60;
+  border-radius: 20px;
+}
+
+.host-poster-container .host-poster-text-container {
+  padding: 50px;
+  width: 40%;
+  flex-direction: column;
+  justify-content: space-around;
+  border-right: 2px solid white;
+}
+
+.host-poster-container .host-poster-text-container button {
+  width: 80%;
+  min-width: 90px;
+  height: 50px;
+  background-color: #FF5A60;
+  border: 2px solid white;
+  color: white;
+  border-radius: 25px;
+}
+
+.host-poster-container .host-poster-text-container button a {
+  color: white;
+  font-weight: bold;
+}
+
+.host-poster-container .host-poster-text-container button:hover {
+  background-color: white;
+}
+
+.host-poster-container .host-poster-text-container button:hover a {
+  color: #FF5A60;
+}
+
+.host-poster-container .host-poster-img-container {
+  border-radius: 20px;
+  background-image: url("https://s3.eu-central-1.amazonaws.com/centaur-wp/marketingweek/prod/content/uploads/2014/11/Brand_Case_Study3.gif?auto=compress,format&q=60&w=1002&h=563");
+  width: 60%;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 960px) {
+  .city-card:nth-child(2) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero-title-container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+  }
+
+  .host-poster-text-container {
+    text-align: center;
+    align-items: center;
+  }
+
+  .host-poster-text-container h1 {
+    display: none;
+  }
+
+  .city-card:nth-child(1) {
+    display: none;
+  }
+}
+

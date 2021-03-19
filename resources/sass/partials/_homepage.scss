@@ -1,0 +1,131 @@
+// HERO
+.hero{
+  display: flex;
+  flex-direction: column;
+  background-image: url('/img/jumbotrone.jpg');
+  justify-content:center;
+  height:750px;
+  background-position: bottom;
+  background-size:cover;
+
+  .hero-title-container{
+    color: white;
+    width:50%;
+    height:100%;
+    h1{
+      font-size: 50px;
+      line-height: 75px;
+    }
+  }
+}
+
+// APPARTAMENTI IN EVIDENZA
+
+// STILE IN COMPONENTE VUE:SEQUENTIAL
+#sequential span{
+  display:flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  width:100%;
+  overflow-x: scroll;
+}
+
+// CITTÀ IN EVIDENZA
+.cities-cards-container {
+  width: 100%;
+
+  .city-card {
+    width:100%;
+
+    button {
+      padding:10px;
+      cursor: pointer;
+      height: 300px;
+    }
+
+    img {
+      border-radius: 15px;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+}
+
+// DIVENTA HOST-BOX
+.host-poster-container{
+  height:400px;
+  color:white;
+  background-color: $bnbpink;
+  border-radius: 20px;
+
+  .host-poster-text-container{
+    padding:50px;
+    width:40%;
+    flex-direction: column;
+    justify-content: space-around;
+    border-right: 2px solid white;
+
+    button{
+      width:80%;
+      min-width: 90px;
+      height:50px;
+      background-color: $bnbpink;
+      border:2px solid white;
+      color:white;
+      border-radius: 25px;
+
+      a{
+        color:white;
+        font-weight: bold;
+      }
+    }
+
+    button:hover{
+      background-color: white;
+      a{
+        color:$bnbpink;
+      }
+    }
+  }
+
+  .host-poster-img-container{
+    border-radius: 20px;
+    background-image: url('https://s3.eu-central-1.amazonaws.com/centaur-wp/marketingweek/prod/content/uploads/2014/11/Brand_Case_Study3.gif?auto=compress,format&q=60&w=1002&h=563');
+    width:60%;
+    background-position:center;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+
+// MEDIA QUERIES
+@media screen and (max-width: 960px) {
+
+  .city-card:nth-child(2) {
+    display:none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+  .hero-title-container {
+    margin-left: auto;
+    margin-right: auto;
+    width:100%;
+    text-align: center;
+  }
+
+  .host-poster-text-container{
+    text-align: center;
+    align-items: center;
+    h1{
+      display: none;
+    }
+  }
+
+  .city-card:nth-child(1) {
+    display:none;
+  }
+}
