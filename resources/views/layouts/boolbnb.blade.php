@@ -167,21 +167,15 @@
     <footer class="mt-50">
       <h3>Classe 20 Team 1</h3>
       <ul>
-        <li>
-          <a href="https://github.com/AlbertoLiguori">Alberto Liguori</a>
-        </li>
-        <li>
-          <a href="https://github.com/francescagiorno">Francesca Giorno</a>
-        </li>
-        <li>
-          <a href="https://github.com/fra-mstr">Francesco Maestroni</a>
-        </li>
-        <li>
-          <a href="https://github.com/mattponk89">Matteo Ponchietti</a>
-        </li>
-        <li>
-          <a href="https://github.com/nico-m11">Nicola Melito</a>
-        </li>
+
+          <li>
+            <a href="https://github.com/AlbertoLiguori">Alberto Liguori</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/mattponk89">Matteo Ponchietti</a>
+          </li>
+
       </ul>
       <h4>&copy; Boolean Careers All rights reserved</h4>
     </footer>
