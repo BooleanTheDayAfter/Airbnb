@@ -22,24 +22,31 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+//HOMEPAGE COMPONENTS
+Vue.component('sequential', require('./components/Sequential.vue').default);
+
+//SEARCHPAGE COMPONENTS
 Vue.component('my-main', require('./components/Main.vue').default);
 Vue.component('list-container', require('./components/ListContainer.vue').default);
 Vue.component('list-item', require('./components/ListItem.vue').default);
 Vue.component('my-map', require('./components/Mapp.vue').default);
-
-Vue.component('show-map', require('./components/ShowMap.vue').default);
-
-Vue.component('payments', require('./components/Payments.vue').default);
-
-Vue.component('sequential', require('./components/Sequential.vue').default);
-
-Vue.component('message', require('./components/Message.vue').default);
-
-Vue.component('modal', require('./components/Modal.vue').default);
-
 Vue.component('my-hooper', require('./components/Hooper.vue').default);
 
+//SHOWPAGE COMPONENT
+Vue.component('my-hooper', require('./components/Hooper.vue').default);
+Vue.component('show-map', require('./components/ShowMap.vue').default);
+Vue.component('message', require('./components/Message.vue').default);
+Vue.component('modal', require('./components/Modal.vue').default);
+
+//PAYMENT COMPONENT
+Vue.component('payments', require('./components/Payments.vue').default);
+
+
+//DASHBOARD COMPONENTS
+Vue.component('dashboard-list-container', require('./components/DashboardListContainer.vue').default);
+Vue.component('dashboard-list-item', require('./components/DashboardListItem.vue').default);
 Vue.component('my-dashboard', require('./components/Dashboard.vue').default);
 
 

@@ -59,6 +59,12 @@
                     <span class="">Inserisci un nuovo appartamento</span>
 
             </button> -->
+            <button v-on:click="createApartment()">
+
+                  <i class="fas fa-plus-circle"></i>
+                  <span class="">Aggiungi appartamento</span>
+
+            </button>
 
         </li>
 
@@ -78,9 +84,9 @@
 
   <section>
 
-    <ListContainer />
+    <DashboardListContainer />
 
-    <ListItem  v-for="(data, index) in apartmentList "
+    <DashboardListItem  v-for="(data, index) in apartmentList "
 
                 :activestar="data.active"
                 :coverimg="'../'.concat(data.cover_img)"
@@ -105,8 +111,8 @@
 </template>
 
 <script>
-import ListItem from './ListItem'
-import ListContainer from './ListContainer'
+import DashboardListItem from './DashboardListItem'
+import DashboardListContainer from './DashboardListContainer'
 
 export default{
   name: "Dashboard",
@@ -114,8 +120,8 @@ export default{
   props:['user'],
 
   components:{
-    ListItem,
-    ListContainer,
+    DashboardListItem,
+    DashboardListContainer,
   },
 
   data(){
