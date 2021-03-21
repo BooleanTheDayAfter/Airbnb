@@ -44,7 +44,8 @@
                               <li><button :onclick="link" type="button" name="button">Mostra Annuncio </button></li>
                               <li><button type="button" name="button">Modifica</button> </li>
                               <li><button type="button" name="button">Sponsorizza </button></li>
-                              <li><button type="button" name="button">Elimina </button></li>
+                              <li><button v-on:click="currentApartmentId = $event.target.value; deleteApartment()" type="button" name="button" :value="apartmentid" >Elimina </button></li>
+
                         </ul>
 
                   </div>
@@ -70,8 +71,48 @@
                    'coverimg',
                    'description',
                    'activestar',
-
+                   'apartmentid',
                    ],
+
+                   data(){
+                           return{
+
+                             currentApartmentId:0,
+
+                           }
+                   },
+
+                   methods:{
+
+                     deleteApartment: function(){
+                       axios.post("http://localhost:8000/api/user/apartments/delete",
+                       {
+                         'apartmentId':this.currentApartmentId,
+
+                       },
+                       {
+                         headers: {
+                         "Content-type": "application/json; charset=UTF-8",
+                         }
+                       },
+                     )
+
+                     .then(response => {
+                         console.log(response)
+                     },
+                     (err) => {
+                       console.log("Err", err);
+                     })
+                     .catch((e) => {
+                       console.log("Caught", e);
+                      }
+                    )
+
+
+                     }
+
+                   }
+
             };
 
 </script>

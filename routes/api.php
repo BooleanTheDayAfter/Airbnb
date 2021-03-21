@@ -28,4 +28,7 @@ Route::post('search/apartments','Api\ApiApartmentController@search');
 Route::get('services', 'Api\ServiceController@index');
 
 Route::post('user/apartments','Api\ApiApartmentController@index');
+Route::post('user/apartments/delete','Api\ApiApartmentController@destroy');
 Route::post('user/info','Api\ApiUserInfoController@show');
+
+Route::get('user/apartments/getservices','Api\ApiApartmentController@returnServices');

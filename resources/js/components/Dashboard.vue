@@ -88,6 +88,7 @@
 
     <DashboardListItem  v-for="(data, index) in apartmentList "
 
+                :apartmentid="data.id"
                 :activestar="data.active"
                 :coverimg="'../'.concat(data.cover_img)"
                 :description="data.description"
@@ -107,12 +108,19 @@
 
   </section>
 
+  <section>
+
+        <DashboardAddApartment />
+
+  </section>
+
 </div>
 </template>
 
 <script>
 import DashboardListItem from './DashboardListItem'
 import DashboardListContainer from './DashboardListContainer'
+import DashboardAddApartment from './DashboardAddApartment'
 
 export default{
   name: "Dashboard",
@@ -120,6 +128,7 @@ export default{
   props:['user'],
 
   components:{
+    DashboardAddApartment,
     DashboardListItem,
     DashboardListContainer,
   },
@@ -174,11 +183,23 @@ export default{
         console.log("Caught", e);
     })
 
-    }
+  },
+
+  getServices:function(){
+    axios.get("http://localhost:8000/api/user/apartments/getservices",
+  ).then(response => {
+      console.log(response.data.services);
+  })
+},
+
+
+
 
   },
 
   created() {
+    this.getServices();
+
 
     console.log(this.userId)
     console.log(this.userInfo)

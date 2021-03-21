@@ -43,10 +43,10 @@ Vue.component('modal', require('./components/Modal.vue').default);
 //PAYMENT COMPONENT
 Vue.component('payments', require('./components/Payments.vue').default);
 
-
 //DASHBOARD COMPONENTS
 Vue.component('dashboard-list-container', require('./components/DashboardListContainer.vue').default);
 Vue.component('dashboard-list-item', require('./components/DashboardListItem.vue').default);
+Vue.component('dashboard-add-apartment', require('./components/DashboardAddApartment.vue').default);
 Vue.component('my-dashboard', require('./components/Dashboard.vue').default);
 
 

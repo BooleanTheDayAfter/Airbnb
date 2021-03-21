@@ -300,7 +300,7 @@ class ApartmentsController extends Controller
         $elimina->position()->delete(); //elimino la posizioneo
         $elimina->messages()->delete(); // elimino i messaggi
         $elimina->sponsors()->delete(); //elimino gli sponsor legati a questo appartamento
-        // $elimina->imgs()->delete(); //elimino le immagini
+        $elimina->imgs()->delete(); //elimino le immagini
 
         $serv = $elimina->services; //elimino solo i servizi inerenti a questo id
         foreach($serv as $services){
