@@ -1,8 +1,9 @@
 <template >
-  <section>
-    <h1>CREATE</h1>
 
-    <form @submit.prevent="submit" method="post" enctype="multipart/form-data">
+  <section>
+    <h1>UPDATE</h1>
+
+    <form @submit.prevent="update" method="post" enctype="multipart/form-data">
 
           <!-- TITLE -->
           <div class="my-form">
@@ -105,7 +106,7 @@
           <div class="my-form">
 
               <label for="cover">Carica immagine di anteprima</label><br>
-              <input type="file" class="my-form-input" name="cover" id="cover" ref="file">
+              <input type="file" class="my-form-input" name="cover" id="updateCover" ref="file">
 
           </div>
 
@@ -113,14 +114,14 @@
           <div class="my-form">
 
               <label for="images">Carica immagini </label><br>
-              <input type="file" class="my-form-input" name="images[]" id="images" multiple>
+              <input type="file" class="my-form-input" name="images[]" id="updateImages" multiple>
 
           </div>
 
           <!-- SUBMIT -->
           <div class="my-form">
 
-              <button type="submit" name="submit" class="btn btn-primary">Send message</button>
+              <button type="submit" name="submit" class="btn btn-primary">Update</button>
 
           </div>
 
@@ -132,9 +133,9 @@
 
 <script>
 export default{
-  name: 'DashboardAddApartment',
+  name: 'DashboardUpdateApartment',
 
-  props:['userid'],
+  props:['userid', 'apartmentid'],
 
   data() {
     return {
@@ -152,6 +153,8 @@ export default{
       bathrooms:0,
       metri_quadrati:0,
       services:[],
+      currentApartmentId:this.apartmentid,
+      currentApartment:{},
       // imageData:{},
       // moreImageData:[],
 
@@ -167,10 +170,36 @@ export default{
     })
     },
 
-    submit: function() {
+    getApartment:function(){
+      axios.post("api/user/apartments/getapartment",
+        {
+          'id' : this.apartmentid,
+        }
+      ).then(response=> {
+        console.log(response),
+        this.currentApartment = response.data.apartment
+        console.log(this.currentApartment)
+        this.title = this.currentApartment.title
+        this.price = this.currentApartment.price
+        //this.city:this.currentApartment.city
+        this.address = response.data.address,
+        this.description = this.currentApartment.description
+        this.beds = this.currentApartment.beds
+        this.rooms = this.currentApartment.rooms
+        this.bathrooms = this.currentApartment.bathrooms
+        this.metri_quadrati = this.currentApartment.metri_quadrati
+        this.services = response.data.services.map(function(el){
+          return el.id
+        })
+
+      })
+
+    },
+
+    update: function() {
 
       const json = JSON.stringify({
-
+        'apartment_id': this.apartmentid,
         'user_id': this.userId,
         'title' : this.title,
         'price' : this.price,
@@ -187,11 +216,11 @@ export default{
 
       let formData = new FormData();
 
-      formData.append('cover', document.getElementById('cover').files[0]);
+      formData.append('cover', document.getElementById('updateCover').files[0]);
       formData.append('data', json);
 
-      for( var i = 0; i < document.getElementById('images').files.length; i++ ){
-        let image = document.getElementById('images').files[i];
+      for( var i = 0; i < document.getElementById('updateImages').files.length; i++ ){
+        let image = document.getElementById('updateImages').files[i];
         formData.append('images[' + i + ']', image);
       }
 
@@ -201,7 +230,7 @@ export default{
 
       this.errors = {};
 
-      axios.post('http://localhost:8000/api/user/apartments/submit',
+      axios.post('http://localhost:8000/api/user/apartments/update',
               formData, config,
 
       ).then(response => {
@@ -237,11 +266,11 @@ export default{
 
   },
 
-  // watch:{
-  //   'services':function(){
-  //     this.fields.services=this.services
-  //     console.log(this.fields.services);
-  //   }
+  watch:{
+    'apartmentid':function(){
+      this.getApartment();
+    }
+  },
   //
   // },
 

@@ -88,6 +88,7 @@
 
     <DashboardListItem  v-for="(data, index) in apartmentList "
 
+                @mouseover.native="currentApartmentId = data.id"
                 :apartmentid="data.id"
                 :activestar="data.active"
                 :coverimg="'../'.concat(data.cover_img)"
@@ -104,13 +105,19 @@
                 slot = "items"
                 />
 
-          </ul>
+          
 
   </section>
 
   <section>
 
-        <DashboardAddApartment />
+        <DashboardAddApartment :userid="userId"/>
+
+  </section>
+
+  <section>
+
+        <DashboardUpdateApartment :userid="userId" :apartmentid="currentApartmentId"/>
 
   </section>
 
@@ -121,6 +128,7 @@
 import DashboardListItem from './DashboardListItem'
 import DashboardListContainer from './DashboardListContainer'
 import DashboardAddApartment from './DashboardAddApartment'
+import DashboardUpdateApartment from './DashboardUpdateApartment'
 
 export default{
   name: "Dashboard",
@@ -129,6 +137,7 @@ export default{
 
   components:{
     DashboardAddApartment,
+    DashboardUpdateApartment,
     DashboardListItem,
     DashboardListContainer,
   },
@@ -137,6 +146,7 @@ export default{
           return{
 
             apartmentList:[],
+            currentApartmentId:0,
             userId:this.user.id,
             userInfo:this.user,
 
@@ -196,6 +206,14 @@ export default{
 
 
   },
+
+  watch:{
+    'currentApartmentId': function(){
+      console.log(this.currentApartmentId)
+    }
+  },
+
+
 
   created() {
     this.getServices();

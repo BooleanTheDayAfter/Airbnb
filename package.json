@@ -10,7 +10,7 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "@types/braintree-web": "^3.69.3",
+        "@types/braintree-web": "^3.69.4",
         "axios": "^0.21.1",
         "bootstrap": "^4.0.0",
         "cross-env": "^7.0",
@@ -26,10 +26,10 @@
     },
     "dependencies": {
         "braintree": "^3.2.2",
-        "braintree-web": "^3.74.0",
+        "braintree-web": "^3.76.0",
         "emailjs-com": "^2.6.4",
         "hooper": "^0.3.4",
-        "paypal-checkout": "^4.0.325",
+        "paypal-checkout": "^4.0.327",
         "vue-sequential-entrance": "^1.1.3"
     }
 }

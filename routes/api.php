@@ -32,3 +32,8 @@ Route::post('user/apartments/delete','Api\ApiApartmentController@destroy');
 Route::post('user/info','Api\ApiUserInfoController@show');
 
 Route::get('user/apartments/getservices','Api\ApiApartmentController@returnServices');
+
+Route::post('user/apartments/getapartment','Api\ApiApartmentController@edit');
+
+Route::post('user/apartments/submit','Api\ApiApartmentController@submit');
+Route::post('user/apartments/update','Api\ApiApartmentController@reupdate');

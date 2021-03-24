@@ -4,13 +4,18 @@ namespace App\Http\Controllers\Api;
 // use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\File;
 use App\Position;
+use App\Img;
 use App\Apartment;
 use App\Http\Resources\ServiceResource;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Sponsor;
 use App\Service;
+use Illuminate\Support\Str;
+use Illuminate\Http\UploadedFile;
+// use Illuminate\Support\Facades\Http;
 
 class ApiApartmentController extends Controller
 {
@@ -75,35 +80,25 @@ class ApiApartmentController extends Controller
         return response()->json(compact('elimina'));
     }
 
-    public function store(Request $request)
+    public function submit(Request $request)
     {
-        // $validation = $request->validate([
-        // 'title' => 'required | min:3 | string | max:100',
-        // 'description' => 'required | string | min:3 |max:250',
-        // 'rooms' => 'required | numeric | min:1',
-        // 'beds' =>  'required| min:1 | numeric',
-        // 'bathrooms' =>  'required | numeric | min:1',
-        // 'metri_quadri'  => 'required | numeric | min:10',
-        // 'price' => 'required | numeric | min:5',
-        // 'cover' => 'file',
-        // 'image' => 'file',
-        // ]);
-        $data = $request->all();
-        $user = Auth::user();
-        $newApartment = new Apartment;
 
-        $newApartment->title = $data['title'];
-        $newApartment->user_id = $user->id;
-        $newApartment->description = $data['description'];
-        $newApartment->rooms = $data['rooms'];
-        $newApartment->beds = $data['beds'];
-        $newApartment->bathrooms = $data['bathrooms'];
-        $newApartment->metri_quadrati = $data['metri_quadrati'];
+        $request['data'] = json_decode($request['data']);
+        $data = $request['data'];
+
+        $newApartment = new Apartment;
+        $newApartment->title = $data->title;
+        $newApartment->user_id = $data->user_id;
+        $newApartment->description = $data->description;
+        $newApartment->rooms = $data->rooms;
+        $newApartment->beds = $data->beds;
+        $newApartment->bathrooms = $data->bathrooms;
+        $newApartment->metri_quadrati = $data->metri_quadrati;
         $newApartment->active = true;
         $newApartment->views_count = 0;
-        $newApartment->price = $data['price'];
+        $newApartment->price = $data->price;
 
-        // cover_img
+        // COVER_IMG
         if($request->file('cover')){
             $name = Str::random(25);
             $imgEst = $request->file('cover')->extension();
@@ -111,18 +106,16 @@ class ApiApartmentController extends Controller
             $ImgApartament = $request->file('cover')->move(public_path().'/images/', $path);
             $newApartment->cover_img = 'images/' . $path;
         }
-        //$request->file('cover')->store('covers');
 
-        $newApartment->save(); //salva
-        // services
+        $newApartment->save();
 
-        if(isset($data['services'])){
-            $newApartment->services()->attach($data['services']);
+        // SERVICES
+        if(($data->services)){
+            $newApartment->services()->attach($data->services);
         }
 
-        // locations
-
-        $newApAddress = $request->city . ', ' . $request->address;
+        // LOCATION
+        $newApAddress = $data->city . ', ' . $data->address;
 
         $response = file_get_contents('https://api.tomtom.com/search/2/geocode/' . $newApAddress . '.json?limit=1&key=' . env('TOMTOM_KEY'));
 
@@ -138,11 +131,12 @@ class ApiApartmentController extends Controller
             'address' => $newApAddress,
         ]);
 
-         $files = $newApartment->imgs; //salvo il file in variabile
-         $arrayImgApartment = $request->file('image'); // prendo il file
+        //IMAGES
+        $arrayImgApartment = $request->file('images'); // prendo il file
 
-         if($request->hasFile('image'))
+         if($request->hasFile('images'))
          { //ciclo per salvarlo
+
              foreach ($arrayImgApartment as $file) {
                  $newImg = new Img; // collego la varibile alla tabella img
                  $name = Str::random(25); // creo nome random di 25 caratteri
@@ -152,11 +146,11 @@ class ApiApartmentController extends Controller
                  $newImg->path = 'images/' . $path;  //aggiungo path
                  $newImg->apartment_id = $newApartment->id; // aggangio all'appartamento tramite id
                  $newImg->save();             // salvo tutto
-             }
+              }
 
          }
 
-        return redirect()->route('apartments.index');
+        return response()->json(compact('newApartment','data'));
 
     }
 
@@ -167,6 +161,99 @@ class ApiApartmentController extends Controller
 
       return response()->json(compact('services'));
 
+    }
+
+    public function edit(Request $request)
+    {
+        $apartment = Apartment::find($request->id);
+        $services = $apartment->services;
+        $address = $apartment->position->address;
+
+        return response()->json(compact('apartment','services', 'address'));
+    }
+
+    public function reupdate(Request $request)
+    {
+        // $validator = Apartment::make($request->all(), [
+        //     'title' => 'required',
+        //     'description' => 'required',
+        //     'rooms' => 'required',
+        //     'beds' =>  'required',
+        //     'bathrooms' =>  'required',
+        //     'metri_quadri'  => 'required',
+
+        //     'price' => 'required',
+        //     'cover_img' => '',
+        //     'image'=> '',
+        // ]);
+        $request['data'] = json_decode($request['data']);
+        $data = $request['data'];
+
+        $apartment = Apartment::find($data->apartment_id);
+        //$services = Service::all();
+        //
+
+        $apartment->title = $data->title;
+        $apartment->description = $data->description;
+        $apartment->rooms = $data->rooms;
+        $apartment->beds = $data->beds;
+        $apartment->bathrooms = $data->bathrooms;
+        $apartment->metri_quadrati = $data->metri_quadrati;
+        $apartment->active = true;
+        $apartment->views_count = 0;
+        $apartment->price = $data->price;
+
+        // COVER_IMG
+        if($request->file('cover')){
+            $name = Str::random(25);
+            $imgEst = $request->file('cover')->extension();
+            $path = $name . '.' . $imgEst;
+            $ImgApartament = $request->file('cover')->move(public_path().'/images/', $path);
+            $apartment->cover_img = 'images/' . $path;
+        }
+
+        $apartment->save();
+
+        // SERVICES
+        $apartment->services()->sync($data->services);
+
+        // LOCATION
+        $newApAddress = $data->city . ', ' . $data->address;
+
+        $response = file_get_contents('https://api.tomtom.com/search/2/geocode/' . $newApAddress . '.json?limit=1&key=' . env('TOMTOM_KEY'));
+
+        $response = json_decode($response, true);
+        $latit = $response['results'][0]['position']['lat'];
+        $longit = $response['results'][0]['position']['lon'];
+
+        $newPosition = $apartment->position();
+        $newPosition->update([
+            //'apartment_id' => $data->apartment_id,
+            'latitude' => $latit,
+            'longitude' => $longit,
+            'address' => $newApAddress,
+        ]);
+
+        //IMAGES
+        $arrayImgApartment = $request->file('images'); // prendo il file
+
+         if($request->hasFile('images'))
+         { //ciclo per salvarlo
+
+             foreach ($arrayImgApartment as $file) {
+                 $newImg = new Img; // collego la varibile alla tabella img
+                 $name = Str::random(25); // creo nome random di 25 caratteri
+                 $imgEst = $file->extension();
+                 $path = $name . '.' . $imgEst;
+                 $file->move(public_path().'/images/', $path);  //salva l'img nella cartella di destinazione
+                 $newImg->path = 'images/' . $path;  //aggiungo path
+                 $newImg->apartment_id = $data->apartment_id; // aggangio all'appartamento tramite id
+                 $newImg->save();             // salvo tutto
+              }
+
+         }
+
+        return response()->json(compact('data','apartment'));
     }
 
 
