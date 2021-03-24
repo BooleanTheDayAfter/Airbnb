@@ -8,21 +8,6 @@
 
 <div class="row">
 
-
-  <a href="{{route('apartments.index')}}">
-
-        <i class="fas fa-house-user"></i>
-        <span class="">I miei appartamenti</span>
-
-  </a>
-
-  <a href="{{route('apartments.create')}}">
-
-          <i class="fas fa-plus-circle"></i>
-          <span class="">Inserisci un nuovo appartamento</span>
-
-  </a>
-
     <div class="container">
 
           <div id="dashboard">

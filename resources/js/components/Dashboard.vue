@@ -28,38 +28,22 @@
 
             </button>
 
-
         </li>
 
         <li class="dashboard-card">
 
-            <!-- <button href="{{route('apartments.index')}}">
-
-                  <i class="fas fa-house-user"></i>
-                  <span class="">I miei appartamenti</span>
-
-            </button> -->
-
-            <button v-on:click="getIndex()">
+            <button v-on:click="getIndex(); toggleApartmentList()">
 
                   <i class="fas fa-house-user"></i>
                   <span class="">I miei appartamenti</span>
 
             </button>
 
-
-
         </li>
 
         <li class="dashboard-card">
 
-            <!-- <button href="{{route('apartments.create')}}">
-
-                    <i class="fas fa-plus-circle"></i>
-                    <span class="">Inserisci un nuovo appartamento</span>
-
-            </button> -->
-            <button v-on:click="createApartment()">
+            <button v-on:click="toggleAddApartment()">
 
                   <i class="fas fa-plus-circle"></i>
                   <span class="">Aggiungi appartamento</span>
@@ -82,46 +66,50 @@
     </ul>
   </section>
 
-  <section>
+  <section class="dashboardList-container" v-bind:class="{ active: apartmentListIsActive}">
 
-    <DashboardListContainer />
+          <DashboardListContainer />
 
-    <DashboardListItem  v-for="(data, index) in apartmentList "
+          <DashboardListItem  v-for="(data, index) in apartmentList "
 
-                @mouseover.native="currentApartmentId = data.id"
-                :apartmentid="data.id"
-                :activestar="data.active"
-                :coverimg="'../'.concat(data.cover_img)"
-                :description="data.description"
-                :link="'window.location=`apartments/'.concat(data.id).concat('`;')"
-                :title = "data.title"
-                :rooms = "data.rooms"
-                :beds = "data.beds"
-                :bathrooms = "data.bathrooms"
-                :metri_quadrati = "data.metri_quadrati"
-                :price ="data.price"
-                :cover_img ="'../'.concat(data.cover_img)"
-                :key = "index"
-                slot = "items"
-                />
+                      @refresh="getIndex"
+                      @display = "toggleUpdateApartment"
+                      @clicked = "getIdForUpdate"
+                      :apartmentid="data.id"
+                      :activestar="data.active"
+                      :coverimg="'../'.concat(data.cover_img)"
+                      :description="data.description"
+                      :link="'window.location=`apartments/'.concat(data.id).concat('`;')"
+                      :title = "data.title"
+                      :rooms = "data.rooms"
+                      :beds = "data.beds"
+                      :bathrooms = "data.bathrooms"
+                      :metri_quadrati = "data.metri_quadrati"
+                      :price ="data.price"
+                      :cover_img ="'../'.concat(data.cover_img)"
+                      :key = "index"
+                      slot = "items"
+                      />
 
-          
+                      <!-- @mouseover.native="currentApartmentId = data.id" -->
 
-  </section>
-
-  <section>
-
-        <DashboardAddApartment :userid="userId"/>
 
   </section>
 
-  <section>
+  <section v-if= "addApartmentisActive" class="DashboardAddApartment-container" >
 
-        <DashboardUpdateApartment :userid="userId" :apartmentid="currentApartmentId"/>
+        <DashboardAddApartment @refresh="getIndex(); toggleAddApartment()" :userid="userId"/>
+
+  </section>
+
+  <section class="dashboardAddApartment-container" v-bind:class="{ active: updateApartmentisActive }">
+
+        <DashboardUpdateApartment @refresh="getIndex(); toggleUpdateApartment()" :userid="userId" :apartmentid="currentApartmentId"/>
 
   </section>
 
 </div>
+
 </template>
 
 <script>
@@ -145,6 +133,9 @@ export default{
   data(){
           return{
 
+            addApartmentisActive:false,
+            updateApartmentisActive:false,
+            apartmentListIsActive:false,
             apartmentList:[],
             currentApartmentId:0,
             userId:this.user.id,
@@ -197,13 +188,28 @@ export default{
 
   getServices:function(){
     axios.get("http://localhost:8000/api/user/apartments/getservices",
-  ).then(response => {
+    ).then(response => {
       console.log(response.data.services);
-  })
-},
+    })
+  },
 
+  getIdForUpdate:function(apartmentId){
+    console.log(apartmentId)
+    this.currentApartmentId = apartmentId;
+  },
 
+  toggleAddApartment:function(){
+    this.addApartmentisActive = !this.addApartmentisActive;
+    console.log(this.isActive)
+  },
 
+  toggleUpdateApartment: function(){
+    this.updateApartmentisActive = !this.updateApartmentisActive;
+  },
+
+  toggleApartmentList:function(){
+    this.apartmentListIsActive = !this.apartmentListIsActive;
+  }
 
   },
 
@@ -211,13 +217,11 @@ export default{
     'currentApartmentId': function(){
       console.log(this.currentApartmentId)
     }
+
   },
-
-
 
   created() {
     this.getServices();
-
 
     console.log(this.userId)
     console.log(this.userInfo)
@@ -228,13 +232,18 @@ export default{
 
 </script>
 
-<style>
+<style scoped>
+.dashboardList-container{
+  display: none;
+}
 .dashboard-component-container{
+  margin-top: 150px;
   display:flex;
+
 }
 
 .dashboard-control-container{
-  border:2px solid red;
+  /* border:2px solid red; */
   width:200px;
 }
 
@@ -253,10 +262,17 @@ export default{
 .button-list-container li  button{
       border-radius: 5px;
       background-color: white;
-      color:$bnbpink;
+      color:grey;
       border:2px solid lightgrey;
       width:250px;
 }
 
+ .dashboardAddApartment-container{
+  display: none;
+}
+
+.active{
+  display: block;
+}
 
 </style>

@@ -7,7 +7,6 @@
                         <div class="search-component-apartment-img-box">
 
                             <img :src="coverimg" alt="img">
-                            <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Bodiam-castle-10My8-1197.jpg"> -->
 
                         </div>
 
@@ -26,12 +25,6 @@
 
                               </ul>
 
-                              <!-- <div class="apartment-description-search-component">
-
-                                      {{description}}
-
-                              </div> -->
-
                               <div class="price-tag-search-component"> <span><b> {{ price / 100}} Euro </b> / notte </span></div>
 
                         </div>
@@ -42,7 +35,7 @@
 
                         <ul>
                               <li><button :onclick="link" type="button" name="button">Mostra Annuncio </button></li>
-                              <li><button type="button" name="button">Modifica</button> </li>
+                              <li><button v-on:click="currentApartmentId = $event.target.value; sendOutDisplay(); sendOutApartmentId(); " type="button" name="button" :value="apartmentid">Modifica</button> </li>
                               <li><button type="button" name="button">Sponsorizza </button></li>
                               <li><button v-on:click="currentApartmentId = $event.target.value; deleteApartment()" type="button" name="button" :value="apartmentid" >Elimina </button></li>
 
@@ -78,11 +71,24 @@
                            return{
 
                              currentApartmentId:0,
+                             // isDisplayed:true,
 
                            }
                    },
 
                    methods:{
+
+                     sendOutApartmentId:function(event){
+                       this.$emit('clicked', this.currentApartmentId)
+                     },
+
+                     sendOutDisplay:function(event){
+                       this.$emit('display',this.isDisplayed)// ,this.isDisplayed
+                     },
+
+                     sendOutIndexRefresh:function(){
+                       this.$emit('refresh')
+                     },
 
                      deleteApartment: function(){
                        axios.post("http://localhost:8000/api/user/apartments/delete",
@@ -99,6 +105,7 @@
 
                      .then(response => {
                          console.log(response)
+                         this.sendOutIndexRefresh();
                      },
                      (err) => {
                        console.log("Err", err);
@@ -119,19 +126,21 @@
 
 <style scoped>
 .dashboard-component-apartments-card{
-  border:2px solid green;
+  border:1px solid lightgrey;
+  border-radius: 10px;
+  margin-bottom:10px;
   display: flex;
   flex-direction: column;
   width:100%;
   height:170px;
   padding:10px;
-  border-bottom:1px solid lightgrey;
+  /* border-bottom:1px solid lightgrey; */
 
 }
 
 .dashboard-list-buttons-container ul{
-  border:1px solid red;
-  border-top:1px solid pink;
+  /* border:1px solid red; */
+  /* border-top:1px solid pink; */
   height:20px;
   list-style: none;
   display: flex;
@@ -141,7 +150,7 @@
 }
 
 .search-component-apartments-card{
-  border:1px solid blue;
+  /* border:1px solid blue; */
   display: flex;
   width:100%;
   height:130px;
@@ -156,7 +165,7 @@
 }
 
 .search-component-apartment-img-box{
-  border:1px solid brown;
+  /* border:1px solid brown; */
   position: relative;
   min-width:130px;
   max-width:130px;

@@ -1,131 +1,137 @@
 <template >
 
   <section>
-    <h1>UPDATE</h1>
 
-    <form @submit.prevent="update" method="post" enctype="multipart/form-data">
+            <div class="dashboardUpdateApartment-form-container">
 
-          <!-- TITLE -->
-          <div class="my-form">
+                <h4>Modifica dati appartamento</h4>
+                <form @submit.prevent="update" method="post" enctype="multipart/form-data">
 
-              <label for="title">Title</label>
-              <input type="text" class="my-form-input" name="title" id="title" v-model="title" required/>
-              <div v-if="errors && errors.title" class="text-danger">{{ errors.title[0] }}</div>
+                      <!-- TITLE -->
+                      <div class="my-form">
 
-          </div>
+                          <label for="title">Title</label>
+                          <input type="text" class="my-form-input" name="title" id="title" v-model="title" required/>
+                          <div v-if="errors && errors.title" class="text-danger">{{ errors.title[0] }}</div>
 
-          <!-- PRICE -->
-          <div class="my-form">
+                      </div>
 
-              <label for="price">Price</label>
-              <input type="text" class="my-form-input" name="price" id="price" v-model="price" required/>
-              <div v-if="errors && errors.price" class="text-danger">{{ errors.price[0] }}</div>
+                      <!-- PRICE -->
+                      <div class="my-form">
 
-          </div>
+                          <label for="price">Price</label>
+                          <input type="text" class="my-form-input" name="price" id="price" v-model="price" required/>
+                          <div v-if="errors && errors.price" class="text-danger">{{ errors.price[0] }}</div>
 
-          <!-- CITY -->
-          <div class="my-form">
+                      </div>
 
-              <label for="city">City</label>
-              <input type="text" class="my-form-input" name="city" id="city" v-model="city" required/>
-              <div v-if="errors && errors.city" class="text-danger">{{ errors.city[0] }}</div>
+                      <!-- CITY -->
+                      <div class="my-form">
 
-          </div>
+                          <label for="city">City</label>
+                          <input type="text" class="my-form-input" name="city" id="city" v-model="city" required/>
+                          <div v-if="errors && errors.city" class="text-danger">{{ errors.city[0] }}</div>
 
-          <!-- ADDRESS -->
-          <div class="my-form">
+                      </div>
 
-              <label for="address">Address</label>
-              <input type="text" class="my-form-input" name="address" id="address" v-model="address" required/>
-              <div v-if="errors && errors.address" class="text-danger">{{ errors.address[0] }}</div>
+                      <!-- ADDRESS -->
+                      <div class="my-form">
 
-          </div>
+                          <label for="address">Address</label>
+                          <input type="text" class="my-form-input" name="address" id="address" v-model="address" required/>
+                          <div v-if="errors && errors.address" class="text-danger">{{ errors.address[0] }}</div>
 
-          <!-- DESCRIPTION -->
-          <div class="my-form">
+                      </div>
 
-              <label for="description">Description</label>
-              <input type="text" class="my-form-input" name="description" id="description" v-model="description" required/>
-              <div v-if="errors && errors.description" class="text-danger">{{ errors.description[0] }}</div>
+                      <!-- DESCRIPTION -->
+                      <div class="my-form">
 
-          </div>
+                          <label for="description">Description</label>
+                          <input type="text" class="my-form-input" name="description" id="description" v-model="description" required/>
+                          <div v-if="errors && errors.description" class="text-danger">{{ errors.description[0] }}</div>
 
-          <!-- BEDS -->
-          <div class="my-form">
+                      </div>
 
-              <label for="beds">Beds</label>
-              <input type="number" class="my-form-input" name="beds" id="beds" v-model="beds" required/>
-              <div v-if="errors && errors.beds" class="text-danger">{{ errors.beds[0] }}</div>
+                      <!-- BEDS -->
+                      <div class="my-form">
 
-          </div>
+                          <label for="beds">Beds</label>
+                          <input type="number" class="my-form-input" name="beds" id="beds" v-model="beds" required/>
+                          <div v-if="errors && errors.beds" class="text-danger">{{ errors.beds[0] }}</div>
 
-          <!-- ROOMS -->
-          <div class="my-form">
+                      </div>
 
-              <label for="rooms">Rooms</label>
-              <input type="number" class="my-form-input" name="rooms" id="rooms" v-model="rooms" required/>
-              <div v-if="errors && errors.rooms" class="text-danger">{{ errors.rooms[0] }}</div>
+                      <!-- ROOMS -->
+                      <div class="my-form">
 
-          </div>
+                          <label for="rooms">Rooms</label>
+                          <input type="number" class="my-form-input" name="rooms" id="rooms" v-model="rooms" required/>
+                          <div v-if="errors && errors.rooms" class="text-danger">{{ errors.rooms[0] }}</div>
 
-          <!-- BATHROOMS -->
-          <div class="my-form">
+                      </div>
 
-              <label for="bathrooms">Bathrooms</label>
-              <input type="number" class="my-form-input" name="bathrooms" id="bathrooms" v-model="bathrooms" required/>
-              <div v-if="errors && errors.bathrooms" class="text-danger">{{ errors.bathrooms[0] }}</div>
+                      <!-- BATHROOMS -->
+                      <div class="my-form">
 
-          </div>
+                          <label for="bathrooms">Bathrooms</label>
+                          <input type="number" class="my-form-input" name="bathrooms" id="bathrooms" v-model="bathrooms" required/>
+                          <div v-if="errors && errors.bathrooms" class="text-danger">{{ errors.bathrooms[0] }}</div>
 
-          <!-- METRI QUADRATI -->
-          <div class="my-form">
+                      </div>
 
-              <label for="metri_quadrati">Metri_quadrati</label>
-              <input type="number" class="my-form-input" name="metri_quadrati" id="metri_quadrati" v-model="metri_quadrati" required/>
-              <div v-if="errors && errors.metri_quadrati" class="text-danger">{{ errors.metri_quadrati[0] }}</div>
+                      <!-- METRI QUADRATI -->
+                      <div class="my-form">
 
-          </div>
+                          <label for="metri_quadrati">Metri_quadrati</label>
+                          <input type="number" class="my-form-input" name="metri_quadrati" id="metri_quadrati" v-model="metri_quadrati" required/>
+                          <div v-if="errors && errors.metri_quadrati" class="text-danger">{{ errors.metri_quadrati[0] }}</div>
 
-          <!-- SERVICES -->
-          <div class="my-form">
+                      </div>
 
-                  <ul class="dashboardAddApartment-services-list">
+                      <!-- SERVICES -->
+                      <div class="my-form">
 
-                      <li v-for="(servizio, index) in servizi">
+                              <h5>Servizi aggiuntivi</h5>
 
-                        <label :for="servizio.name">{{servizio.name}}</label>
-                        <input type="checkbox"  :name="servizio.name" class="my-form-input"  :id="servizio.name" :value="servizio.id" v-model="services">
+                              <ul class="dashboardAddApartment-services-list">
 
-                      </li>
+                                  <li v-for="(servizio, index) in servizi">
 
-                  </ul>
+                                    <input type="checkbox"  :name="servizio.name" class="my-form-input"  :id="servizio.name" :value="servizio.id" v-model="services">
+                                    <label :for="servizio.name">{{servizio.name}}</label>
 
-          </div>
+                                  </li>
 
-          <!-- COVER IMG -->
-          <div class="my-form">
+                              </ul>
 
-              <label for="cover">Carica immagine di anteprima</label><br>
-              <input type="file" class="my-form-input" name="cover" id="updateCover" ref="file">
+                      </div>
 
-          </div>
+                      <!-- COVER IMG -->
+                      <div class="my-form">
 
-          <!-- MORE IMAGES -->
-          <div class="my-form">
+                          <label for="cover"><h5>Carica immagine di copertina</h5></label><br>
+                          <input type="file" class="my-form-input" name="cover" id="updateCover" ref="file">
 
-              <label for="images">Carica immagini </label><br>
-              <input type="file" class="my-form-input" name="images[]" id="updateImages" multiple>
+                      </div>
 
-          </div>
+                      <!-- MORE IMAGES -->
+                      <div class="my-form">
 
-          <!-- SUBMIT -->
-          <div class="my-form">
+                          <label for="images"><h5>Carica immagini aggiuntive</h5></label><br>
+                          <input type="file" class="my-form-input" name="images[]" id="updateImages" multiple>
 
-              <button type="submit" name="submit" class="btn btn-primary">Update</button>
+                      </div>
 
-          </div>
+                      <!-- SUBMIT -->
+                      <div class="my-form">
 
-    </form>
+                          <button type="submit" name="submit" class="btn btn-primary">Modifica</button>
+
+                      </div>
+
+                </form>
+
+            </div>
 
   </section>
 
@@ -161,6 +167,10 @@ export default{
     }
   },
   methods: {
+
+    sendOutIndexRefresh:function(){
+      this.$emit('refresh')
+    },
 
     getServices:function(){
       axios.get("api/user/apartments/getservices",
@@ -235,6 +245,9 @@ export default{
 
       ).then(response => {
         console.log(response);
+        this.sendOutIndexRefresh();
+
+
       }).catch(error => {
         if (error.response.status === 422) {
           this.errors = error.response.data.errors || {};
@@ -286,6 +299,34 @@ export default{
 
 </script>
 
-<style>
+<style scoped>
+
+  .dashboardUpdateApartment-form-container{
+
+    font-size: 12px;
+    border:1px solid lightgrey;
+    border-radius: 15px;
+    padding:20px;
+
+  }
+
+  .dashboardUpdateApartment-form-container .my-form{
+    display:flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+
+  .dashboardUpdateApartment-form-container ul{
+    list-style: none;
+  }
+
+  .dashboardUpdateApartment-form-container h5{
+    font-size: 13px;
+  }
+
+  .dashboardUpdateApartment-form-container input{
+    border-radius: 5px;
+    border:1px solid lightgrey;
+  }
 
 </style>
