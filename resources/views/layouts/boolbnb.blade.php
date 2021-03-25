@@ -177,7 +177,7 @@
           </li>
 
       </ul>
-      <h4>&copy; Boolean Careers All rights reserved</h4>
+      <!-- <h4>&copy; Boolean Careers All rights reserved</h4> -->
     </footer>
     <script src="{{ asset('js/various.js') }}" defer></script>
   </body>

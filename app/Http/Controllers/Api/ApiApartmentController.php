@@ -12,6 +12,7 @@ use App\Http\Resources\ServiceResource;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Sponsor;
+use App\SponsorType;
 use App\Service;
 use Illuminate\Support\Str;
 use Illuminate\Http\UploadedFile;
@@ -156,11 +157,14 @@ class ApiApartmentController extends Controller
 
     public function returnServices()
     {
-
       $services = Service::all();
-
       return response()->json(compact('services'));
+    }
 
+    public function returnSponsorTypes()
+    {
+      $sponsortypes = SponsorType::all();
+      return response()->json(compact('sponsortypes'));
     }
 
     public function edit(Request $request)
@@ -168,7 +172,6 @@ class ApiApartmentController extends Controller
         $apartment = Apartment::find($request->id);
         $services = $apartment->services;
         $address = $apartment->position->address;
-
         return response()->json(compact('apartment','services', 'address'));
     }
 

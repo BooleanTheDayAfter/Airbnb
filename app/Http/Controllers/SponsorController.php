@@ -40,7 +40,7 @@ class SponsorController extends Controller
     {
         //$apartment = Apartment::find($apart_id);
         $sponsortypes = SponsorType::all();
-        dd($apartment);
+        // dd($apartment);
         return view('sponsor', compact('apartment', 'sponsortypes'));
     }
 
@@ -51,7 +51,7 @@ class SponsorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         $data = $request->all();
         $apartment = Apartment::find($request->apartment_id);
         $sponsortype = SponsorType::find($request->sponsortype_id);

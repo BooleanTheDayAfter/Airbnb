@@ -32,6 +32,7 @@ Route::post('user/apartments/delete','Api\ApiApartmentController@destroy');
 Route::post('user/info','Api\ApiUserInfoController@show');
 
 Route::get('user/apartments/getservices','Api\ApiApartmentController@returnServices');
+Route::get('user/apartments/getsponsortypes','Api\ApiApartmentController@returnSponsorTypes');
 
 Route::post('user/apartments/getapartment','Api\ApiApartmentController@edit');
 

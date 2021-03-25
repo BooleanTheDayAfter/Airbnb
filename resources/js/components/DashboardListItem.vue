@@ -35,8 +35,8 @@
 
                         <ul>
                               <li><button :onclick="link" type="button" name="button">Mostra Annuncio </button></li>
-                              <li><button v-on:click="currentApartmentId = $event.target.value; sendOutDisplay(); sendOutApartmentId(); " type="button" name="button" :value="apartmentid">Modifica</button> </li>
-                              <li><button type="button" name="button">Sponsorizza </button></li>
+                              <li><button v-on:click="currentApartmentId = $event.target.value; sendOutDisplayUpdate(); sendOutApartmentId(); " type="button" name="button" :value="apartmentid">Modifica</button> </li>
+                              <li><button v-on:click="currentApartmentId = $event.target.value; sendOutDisplaySponsor(); sendOutApartmentId(); " type="button" name="button" :value="apartmentid">Sponsorizza </button></li>
                               <li><button v-on:click="currentApartmentId = $event.target.value; deleteApartment()" type="button" name="button" :value="apartmentid" >Elimina </button></li>
 
                         </ul>
@@ -82,8 +82,12 @@
                        this.$emit('clicked', this.currentApartmentId)
                      },
 
-                     sendOutDisplay:function(event){
-                       this.$emit('display',this.isDisplayed)// ,this.isDisplayed
+                     sendOutDisplayUpdate:function(event){
+                       this.$emit('displayUpdate',this.isDisplayed)// ,this.isDisplayed
+                     },
+
+                     sendOutDisplaySponsor:function(event){
+                       this.$emit('displaySponsor',this.isDisplayed)// ,this.isDisplayed
                      },
 
                      sendOutIndexRefresh:function(){
@@ -147,6 +151,10 @@
   justify-content: space-between;
   align-items: center;
 
+}
+
+.dashboard-list-buttons-container ul li button:hover{
+  cursor:pointer;
 }
 
 .search-component-apartments-card{

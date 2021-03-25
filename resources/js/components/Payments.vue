@@ -107,8 +107,9 @@ import braintree from 'braintree-web';
 import paypal from 'paypal-checkout';
 
 export default {
+  name:"Payments",
 
-  props:['appartamento','sponsortypes'],
+  props:['appartamento'],
 
     data() {
         return {
@@ -117,8 +118,8 @@ export default {
             nonce: "",
             error: "",
             amount: 9.99,
-            apartmentId:this.appartamento.id,
-            sponsorTypes:this.sponsortypes,
+            apartmentId:this.appartamento,
+            sponsorTypes:[],
             sponsorId:3,
             isPaymentFinalized:"",
             expireDate:"",
@@ -127,6 +128,18 @@ export default {
         }
     },
     methods: {
+        sendOutIndexRefresh:function(){
+          this.$emit('refresh')
+        },
+
+        getSponsorTypes:function(){
+          axios.get("api/user/apartments/getsponsortypes",
+          ).then(response => {
+            console.log(response)
+            this.sponsorTypes = response.data.sponsortypes;
+            console.log(this.sponsorTypes)
+          })
+        },
 
         findSponsor(id){
           let sponsor = this.sponsorTypes.find(function(el){
@@ -158,6 +171,10 @@ export default {
     },
 
     watch:{
+      'appartamento':function(){
+          this.apartmentId = this.appartamento;
+      },
+
       'nonce':function() {
 
         axios.post(
@@ -178,13 +195,17 @@ export default {
                       console.log("success")
                       this.isPaymentFinalized = outcome.success_message
                       this.expireDate = outcome.expire
+                      this.sendOutIndexRefresh();
                     }else{
                         console.log("error")
                       }
 
-
                   })
       },
+    },
+
+    created() {
+      this.getSponsorTypes()
     },
 
     mounted() {
@@ -274,6 +295,10 @@ export default {
   border-radius:5px;
 }
 
+#amount{
+  width:50px;
+}
+
 .p-el{
   margin-top: 10px;
 }
@@ -284,13 +309,16 @@ export default {
   justify-content: space-between;
   margin-top: 15px;
 }
-
+.amount-container{
+  margin-left: 10px;
+}
 .checkbox-container{
 display:flex;
 flex-direction: column;
 border:2px solid pink;
 border-radius: 10px;
 padding:10px;
+min-width: 173px;
 }
 
 .input-amount-container{
@@ -301,10 +329,12 @@ padding:10px;
 .valuta{
   margin-right: 10px;
 }
+
 .payment-container{
-  padding:20px;
+  padding:10px;
   border: 1px solid lightgray;
   border-radius: 10px;
+  font-size: 12px;
 
 }
 
@@ -315,7 +345,7 @@ padding:10px;
 .credit-card-button{
   cursor:pointer;
   width:100%;
-  height:45px;
+  height:30px;
   color:white;
   font-weight: 600;
   font-size: 15px;

@@ -54,7 +54,7 @@
 
         <li class="dashboard-card">
 
-            <button href="">
+            <button v-on:click="getSponsorTypes()">
 
                     <i class="fas fa-plus-circle"></i>
                     <span class="">Statistiche</span>
@@ -73,7 +73,8 @@
           <DashboardListItem  v-for="(data, index) in apartmentList "
 
                       @refresh="getIndex"
-                      @display = "toggleUpdateApartment"
+                      @displayUpdate = "toggleUpdateApartment"
+                      @displaySponsor = "toggleSponsor"
                       @clicked = "getIdForUpdate"
                       :apartmentid="data.id"
                       :activestar="data.active"
@@ -108,6 +109,12 @@
 
   </section>
 
+  <section class="hide" v-bind:class="{ active: sponsorFormIsActive }">
+
+          <Payments @refresh="getIndex()" :appartamento ="currentApartmentId"/>
+
+  </section>
+
 </div>
 
 </template>
@@ -117,6 +124,7 @@ import DashboardListItem from './DashboardListItem'
 import DashboardListContainer from './DashboardListContainer'
 import DashboardAddApartment from './DashboardAddApartment'
 import DashboardUpdateApartment from './DashboardUpdateApartment'
+import Payments from './Payments'
 
 export default{
   name: "Dashboard",
@@ -128,6 +136,7 @@ export default{
     DashboardUpdateApartment,
     DashboardListItem,
     DashboardListContainer,
+    Payments,
   },
 
   data(){
@@ -136,8 +145,10 @@ export default{
             addApartmentisActive:false,
             updateApartmentisActive:false,
             apartmentListIsActive:false,
+            sponsorFormIsActive:false,
             apartmentList:[],
             currentApartmentId:0,
+            currentApartment:{},
             userId:this.user.id,
             userInfo:this.user,
 
@@ -145,17 +156,15 @@ export default{
   },
 
   methods:{
+
     getIndex: function(){
       axios.post("http://localhost:8000/api/user/apartments",
-      {
-        "id":this.userId,
-
-      },
-      {
-        headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        }
-      },
+      { "id":this.userId },
+      // {
+      //   headers: {
+      //   "Content-type": "application/json; charset=UTF-8",
+      //   }
+      // },
     )
       .then(response => {
           console.log(response)
@@ -166,50 +175,49 @@ export default{
 
     getUserInfo: function(){
       axios.post("http://localhost:8000/api/user/info",
-      {
-        "id":this.userId,
+      {"id":this.userId},
+      // {
+      //   headers: {
+      //   "Content-type": "application/json; charset=UTF-8",
+      //   }
+      // },
+      )
+      .then(response => {
+          console.log(response)
+      })
+      .catch((e) => {
+          console.log("Caught", e);
+      })
+    },
 
-      },
-      {
-        headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        }
-      },
-    )
-    .then(response => {
-        console.log(response)
-    })
+    getServices:function(){
+      axios.get("http://localhost:8000/api/user/apartments/getservices",
+      ).then(response => {
+        console.log(response.data.services);
+      })
+    },
 
-    .catch((e) => {
-        console.log("Caught", e);
-    })
+    getIdForUpdate:function(apartmentId){
+      console.log(apartmentId)
+      this.currentApartmentId = apartmentId;
+    },
 
-  },
+    toggleAddApartment:function(){
+      this.addApartmentisActive = !this.addApartmentisActive;
+      console.log(this.isActive)
+    },
 
-  getServices:function(){
-    axios.get("http://localhost:8000/api/user/apartments/getservices",
-    ).then(response => {
-      console.log(response.data.services);
-    })
-  },
+    toggleUpdateApartment: function(){
+      this.updateApartmentisActive = !this.updateApartmentisActive;
+    },
 
-  getIdForUpdate:function(apartmentId){
-    console.log(apartmentId)
-    this.currentApartmentId = apartmentId;
-  },
+    toggleApartmentList:function(){
+      this.apartmentListIsActive = !this.apartmentListIsActive;
+    },
 
-  toggleAddApartment:function(){
-    this.addApartmentisActive = !this.addApartmentisActive;
-    console.log(this.isActive)
-  },
-
-  toggleUpdateApartment: function(){
-    this.updateApartmentisActive = !this.updateApartmentisActive;
-  },
-
-  toggleApartmentList:function(){
-    this.apartmentListIsActive = !this.apartmentListIsActive;
-  }
+    toggleSponsor:function(){
+      this.sponsorFormIsActive = !this.sponsorFormIsActive;
+    }
 
   },
 
@@ -233,13 +241,15 @@ export default{
 </script>
 
 <style scoped>
+
 .dashboardList-container{
   display: none;
 }
+
 .dashboard-component-container{
   margin-top: 150px;
   display:flex;
-
+  height:80vh;
 }
 
 .dashboard-control-container{
@@ -265,9 +275,18 @@ export default{
       color:grey;
       border:2px solid lightgrey;
       width:250px;
+      cursor:pointer;
 }
 
- .dashboardAddApartment-container{
+.button-list-container li  button:hover{
+  background-color: #e1f4f5;
+}
+
+.dashboardAddApartment-container{
+  display: none;
+}
+
+.hide{
   display: none;
 }
 

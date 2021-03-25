@@ -229,7 +229,7 @@
 }
 
 .filter-results{
-  border:2px solid red;
+  /* border:2px solid red; */
   height:100%;
   padding-left:20px;
   padding-right:20px;
@@ -262,7 +262,7 @@
 }
 
 .results-list{
-  border:2px solid green;
+  /* border:2px solid green; */
   /* height:100%; */
   height:calc(100% - 150px);
   /* overflow-y: hidden; */
