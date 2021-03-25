@@ -48,4 +48,16 @@ class Apartment extends Model
     {
       return $this->belongsToMany('App\Service', 'apartment_service');
     }
+    public function views()
+    {
+      return $this->hasMany('App\View', 'apartment_id', 'id');
+    }
+    public function saveView()
+    {
+      $newView = new View;
+      $newView->create([
+        'apartment_id' => $this->id,
+      ]);
+      return $newView;
+    }
 }

@@ -24,7 +24,7 @@ class CreateApartments extends Migration
             $table->integer('bathrooms');
             $table->integer('metri_quadrati');
             $table->boolean('active');
-            $table->bigInteger('views_count');
+            $table->bigInteger('views_count')->nullable();
             $table->integer('price');
             $table->string('cover_img');          
             $table->timestamps();

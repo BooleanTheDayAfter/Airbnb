@@ -168,8 +168,7 @@ class ApartmentsController extends Controller
         $services = Service::all();
         $array = ['fa-wifi', 'fa-car','fa-swimmer', 'fa-concierge-bell','fa-hot-tub','fa-water'];
         $user = Auth::user();
-        $apartment
-            ->increment('views_count', 1);
+        $apartment->saveView();
 
             return view('apartments.show', compact('apartment', 'user', 'services'));
 
@@ -360,5 +359,13 @@ class ApartmentsController extends Controller
         return view('sponsor', compact('apartment', 'sponsortypes'));
     }
 
+    public function stats()
+    {
+        $user = User::find(Auth::user()->id);
+        $apartments = Apartment::with('views')
+        ->where('user_id',  $user->id)->get();
 
+
+        return view('stats', compact('apartments'));
+    }
 }

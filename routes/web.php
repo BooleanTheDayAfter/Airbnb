@@ -45,4 +45,5 @@ Route::post('/search', 'ApartmentsController@search')->name('search');
 Route::post('/apartments/{id}/sponsor', 'ApartmentsController@sponsor')->name('apartments.sponsor');
 
 Route::get('/admin', 'AdminController@dashboard')->name('dashboard');
+Route::get('/admin/stats', 'ApartmentsController@stats')->name('stats');
 Route::resource('sponsor', 'SponsorController');
