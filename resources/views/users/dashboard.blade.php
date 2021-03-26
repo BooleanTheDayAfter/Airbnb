@@ -6,7 +6,7 @@
 
 @section('content')
 
-<div class="row">
+<!-- <div class="row"> -->
 
 <!--
   <a href="{{route('apartments.create')}}">
@@ -16,15 +16,15 @@
 
   </a> -->
 
-    <div class="container">
+    <!-- <div class="row"> -->
 
-          <div id="dashboard">
+          <div id="dashboard" class="container">
 
-              <my-dashboard :user="{{$user}}"> </my-dashboard>
+              <my-dashboard class="row" :user="{{$user}}"> </my-dashboard>
 
           </div>
 
-    </div>
+    <!-- </div> -->
 
     <!-- <a href="{{route('apartments.index')}}">
 
@@ -33,5 +33,5 @@
 
     </a> -->
 
-</div>
+<!-- </div> -->
 @endsection

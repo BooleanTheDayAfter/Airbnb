@@ -95,7 +95,7 @@ class ApiApartmentController extends Controller
         $newApartment->beds = $data->beds;
         $newApartment->bathrooms = $data->bathrooms;
         $newApartment->metri_quadrati = $data->metri_quadrati;
-        $newApartment->active = true;
+        $newApartment->active = false;
         $newApartment->views_count = 0;
         $newApartment->price = $data->price;
 

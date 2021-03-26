@@ -1,119 +1,128 @@
 <template>
 
-<div class="dashboard-component-container">
+<div class="dashboard-component-container row">
 
-  <section class="dashboard-control-container">
+      <div class="column-1">
 
-    <h2>Dashboard</h2>
+            <section class="dashboard-control-container">
 
-    <div class="dashboard-username">
-      <!-- <b class="dashboard-font-helper">{{$user->username}}</b> · {{$user->email}} -->
-    </div>
+        <h2>Dashboard</h2>
 
-    <ul class="button-list-container d-flex">
+        <div class="dashboard-username">
+          <!-- <b class="dashboard-font-helper">{{$user->username}}</b> · {{$user->email}} -->
+        </div>
 
-        <li class="dashboard-card">
+        <ul class="button-list-container d-flex">
 
-            <!-- <button href="{{route('user.edit')}}">
+            <li class="dashboard-card">
 
-                    <i class="far fa-id-card"></i>
-                    <span class="">Modifica informazioni personali</span>
+                <!-- <button href="{{route('user.edit')}}">
 
-            </button> -->
+                        <i class="far fa-id-card"></i>
+                        <span class="">Modifica informazioni personali</span>
 
-            <button v-on:click="getUserInfo()">
+                </button> -->
 
-                  <i class="fas fa-house-user"></i>
-                  <span class="">Info Personali</span>
+                <button v-on:click="getUserInfo()">
 
-            </button>
+                      <i class="fas fa-house-user"></i>
+                      <span class="">Info Personali</span>
 
-        </li>
+                </button>
 
-        <li class="dashboard-card">
+            </li>
 
-            <button v-on:click="getIndex(); toggleApartmentList()">
+            <li class="dashboard-card">
 
-                  <i class="fas fa-house-user"></i>
-                  <span class="">I miei appartamenti</span>
+                <button v-on:click="getIndex(); toggleApartmentList()">
 
-            </button>
+                      <i class="fas fa-house-user"></i>
+                      <span class="">I miei appartamenti</span>
 
-        </li>
+                </button>
 
-        <li class="dashboard-card">
+            </li>
 
-            <button v-on:click="toggleAddApartment()">
+            <li class="dashboard-card">
 
-                  <i class="fas fa-plus-circle"></i>
-                  <span class="">Aggiungi appartamento</span>
+                <button v-on:click="toggleAddApartment()">
 
-            </button>
+                      <i class="fas fa-plus-circle"></i>
+                      <span class="">Aggiungi appartamento</span>
 
-        </li>
+                </button>
 
-        <li class="dashboard-card">
+            </li>
 
-            <button v-on:click="getSponsorTypes()">
+            <li class="dashboard-card">
 
-                    <i class="fas fa-plus-circle"></i>
-                    <span class="">Statistiche</span>
+                <button v-on:click="getSponsorTypes()">
 
-            </button>
+                        <i class="fas fa-plus-circle"></i>
+                        <span class="">Statistiche</span>
 
-        </li>
+                </button>
 
-    </ul>
-  </section>
+            </li>
 
-  <section class="dashboardList-container" v-bind:class="{ active: apartmentListIsActive}">
+        </ul>
+      </section>
 
-          <DashboardListContainer />
+      </div>
 
-          <DashboardListItem  v-for="(data, index) in apartmentList "
+      <div class="column-2">
 
-                      @refresh="getIndex"
-                      @displayUpdate = "toggleUpdateApartment"
-                      @displaySponsor = "toggleSponsor"
-                      @clicked = "getIdForUpdate"
-                      :apartmentid="data.id"
-                      :activestar="data.active"
-                      :coverimg="'../'.concat(data.cover_img)"
-                      :description="data.description"
-                      :link="'window.location=`apartments/'.concat(data.id).concat('`;')"
-                      :title = "data.title"
-                      :rooms = "data.rooms"
-                      :beds = "data.beds"
-                      :bathrooms = "data.bathrooms"
-                      :metri_quadrati = "data.metri_quadrati"
-                      :price ="data.price"
-                      :cover_img ="'../'.concat(data.cover_img)"
-                      :key = "index"
-                      slot = "items"
-                      />
+            <section class="dashboardList-container" v-bind:class="{ active: apartmentListIsActive}">
 
-                      <!-- @mouseover.native="currentApartmentId = data.id" -->
+              <DashboardListContainer />
 
+              <DashboardListItem  v-for="(data, index) in apartmentList "
 
-  </section>
+                          @refresh="getIndex"
+                          @displayUpdate = "toggleUpdateApartment"
+                          @displaySponsor = "toggleSponsor"
+                          @clicked = "getIdForUpdate"
+                          :apartmentid="data.id"
+                          :activestar="data.active"
+                          :coverimg="'../'.concat(data.cover_img)"
+                          :description="data.description"
+                          :link="'window.location=`apartments/'.concat(data.id).concat('`;')"
+                          :title = "data.title"
+                          :rooms = "data.rooms"
+                          :beds = "data.beds"
+                          :bathrooms = "data.bathrooms"
+                          :metri_quadrati = "data.metri_quadrati"
+                          :price ="data.price"
+                          :cover_img ="'../'.concat(data.cover_img)"
+                          :key = "index"
+                          slot = "items"
+                          />
 
-  <section v-if= "addApartmentisActive" class="DashboardAddApartment-container" >
+      </section>
 
-        <DashboardAddApartment @refresh="getIndex(); toggleAddApartment()" :userid="userId"/>
+      </div>
 
-  </section>
+      <div class="column-3">
 
-  <section class="dashboardAddApartment-container" v-bind:class="{ active: updateApartmentisActive }">
+            <section v-if= "addApartmentisActive" class="DashboardAddApartment-container" >
 
-        <DashboardUpdateApartment @refresh="getIndex(); toggleUpdateApartment()" :userid="userId" :apartmentid="currentApartmentId"/>
+                  <DashboardAddApartment @refresh="getIndex(); toggleAddApartment()" :userid="userId"/>
 
-  </section>
+            </section>
 
-  <section class="hide" v-bind:class="{ active: sponsorFormIsActive }">
+            <section class="dashboardAddApartment-container" v-bind:class="{ active: updateApartmentisActive }">
 
-          <Payments @refresh="getIndex()" :appartamento ="currentApartmentId"/>
+                  <DashboardUpdateApartment @refresh="getIndex(); toggleUpdateApartment()" :userid="userId" :apartmentid="currentApartmentId"/>
 
-  </section>
+            </section>
+
+            <section class="hide" v-bind:class="{ active: sponsorFormIsActive }">
+
+                    <Payments @refresh="getIndex()" :appartamento ="currentApartmentId"/>
+
+            </section>
+
+      </div>
 
 </div>
 
@@ -204,11 +213,14 @@ export default{
 
     toggleAddApartment:function(){
       this.addApartmentisActive = !this.addApartmentisActive;
-      console.log(this.isActive)
+      this.toggleOffUpdateApartment();
+      this.toggleOffSponsor();
     },
 
     toggleUpdateApartment: function(){
       this.updateApartmentisActive = !this.updateApartmentisActive;
+      this.toggleOffAddApartment();
+      this.toggleOffSponsor();
     },
 
     toggleApartmentList:function(){
@@ -217,6 +229,20 @@ export default{
 
     toggleSponsor:function(){
       this.sponsorFormIsActive = !this.sponsorFormIsActive;
+      this.toggleOffAddApartment();
+      this.toggleOffUpdateApartment()
+    },
+
+    toggleOffAddApartment: function(){
+      this.addApartmentisActive = false;
+    },
+
+    toggleOffUpdateApartment: function(){
+      this.updateApartmentisActive = false;
+    },
+
+    toggleOffSponsor: function(){
+      this.sponsorFormIsActive = false;
     }
 
   },
@@ -242,6 +268,25 @@ export default{
 
 <style scoped>
 
+/* .special-column{
+  padding-left:20px;
+  padding-right:20px;
+} */
+
+.column-1, .column-3{
+  /* border: 2px solid red; */
+  width:30%;
+  /* float:left; */
+}
+
+.column-2{
+  /* border: 2px solid red; */
+  padding-left:20px;
+  padding-right:20px;
+  width:40%;
+  /* float:left; */
+}
+
 .dashboardList-container{
   display: none;
 }
@@ -249,6 +294,7 @@ export default{
 .dashboard-component-container{
   margin-top: 150px;
   display:flex;
+  width:100%;
   height:80vh;
 }
 
@@ -283,6 +329,7 @@ export default{
 }
 
 .dashboardAddApartment-container{
+  /* height:100%; */
   display: none;
 }
 

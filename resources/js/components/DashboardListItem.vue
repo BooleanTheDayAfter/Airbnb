@@ -34,6 +34,7 @@
                   <div class="dashboard-list-buttons-container">
 
                         <ul>
+
                               <li><button :onclick="link" type="button" name="button">Mostra Annuncio </button></li>
                               <li><button v-on:click="currentApartmentId = $event.target.value; sendOutDisplayUpdate(); sendOutApartmentId(); " type="button" name="button" :value="apartmentid">Modifica</button> </li>
                               <li><button v-on:click="currentApartmentId = $event.target.value; sendOutDisplaySponsor(); sendOutApartmentId(); " type="button" name="button" :value="apartmentid">Sponsorizza </button></li>
@@ -136,6 +137,7 @@
   display: flex;
   flex-direction: column;
   width:100%;
+  min-width:380px;
   height:170px;
   padding:10px;
   /* border-bottom:1px solid lightgrey; */

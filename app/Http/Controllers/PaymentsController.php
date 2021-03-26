@@ -56,6 +56,9 @@ class PaymentsController extends Controller
         $today = $date->format('Y-m-d');
         $expire = $date->addDays($sponsortype->days)->format('Y-m-d');
 
+        $apartment->active = true;
+        $apartment->save();
+
         DB::table('sponsors')->insert([
             'apartment_id' => $apartment->id,
             'type_id' => $sponsortype->id,
