@@ -76,12 +76,16 @@
 
               <DashboardListContainer />
 
-              <DashboardListItem  v-for="(data, index) in apartmentList "
+              <DashboardListItem v-for="(data, index) in apartmentList "
 
+                          :class="data.id == currentApartmentId ? 'selected' : 'unselected'"
+
+                          
                           @refresh="getIndex"
                           @displayUpdate = "toggleUpdateApartment"
                           @displaySponsor = "toggleSponsor"
                           @clicked = "getIdForUpdate"
+
                           :apartmentid="data.id"
                           :activestar="data.active"
                           :coverimg="'../'.concat(data.cover_img)"
@@ -160,7 +164,6 @@ export default{
             currentApartment:{},
             userId:this.user.id,
             userInfo:this.user,
-
           }
   },
 
@@ -243,13 +246,17 @@ export default{
 
     toggleOffSponsor: function(){
       this.sponsorFormIsActive = false;
-    }
+    },
 
   },
 
   watch:{
     'currentApartmentId': function(){
       console.log(this.currentApartmentId)
+    },
+
+    'isSomethingSelected': function(){
+        this.shouldVisible = !this.isSomethingSelected
     }
 
   },
@@ -339,6 +346,14 @@ export default{
 
 .active{
   display: block;
+}
+
+.selected{
+  border:2px solid #d70466;
+}
+
+.unselected {
+  opacity: 0.6;
 }
 
 </style>

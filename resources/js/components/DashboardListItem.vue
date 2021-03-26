@@ -2,7 +2,7 @@
 
               <li class="dashboard-component-apartments-card">
 
-                  <div :onclick="link" class="search-component-apartments-card">
+                  <div class="search-component-apartments-card" @click="currentApartmentId = apartmentid; sendOutApartmentId();" >
 
                         <div class="search-component-apartment-img-box">
 
@@ -66,13 +66,17 @@
                    'description',
                    'activestar',
                    'apartmentid',
+
                    ],
 
                    data(){
                            return{
 
                              currentApartmentId:0,
-                             // isDisplayed:true,
+
+                             isThisSelected: false,
+
+                             isvisible: this.visible,
 
                            }
                    },
@@ -121,15 +125,26 @@
                     )
 
 
-                     }
+                  }
 
-                   }
+                },
 
-            };
+                };
+
+            // };
 
 </script>
 
 <style scoped>
+
+.unselected {
+  opacity: 0.3;
+}
+
+.selected {
+  opacity: 1;
+}
+
 .dashboard-component-apartments-card{
   border:1px solid lightgrey;
   border-radius: 10px;
@@ -233,8 +248,5 @@
   top:10px;
 }
 
-/* .dActive{
-  display: block;
-} */
 
 </style>
