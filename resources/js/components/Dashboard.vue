@@ -23,7 +23,7 @@
 
                 </button> -->
 
-                <button v-on:click="getUserInfo()">
+                <button v-on:click="getUserInfo(); toggleUpdateUser();">
 
                       <i class="fas fa-house-user"></i>
                       <span class="">Info Personali</span>
@@ -80,7 +80,6 @@
 
                           :class="data.id == currentApartmentId ? 'selected' : 'unselected'"
 
-                          
                           @refresh="getIndex"
                           @displayUpdate = "toggleUpdateApartment"
                           @displaySponsor = "toggleSponsor"
@@ -102,7 +101,13 @@
                           slot = "items"
                           />
 
-      </section>
+            </section>
+
+            <section class="hide" v-bind:class="{ active: updateUserisActive }">
+
+                      <DashboardUpdateUser :user = "user" :userinfo = "userInfo"/>
+
+            </section>
 
       </div>
 
@@ -137,6 +142,7 @@ import DashboardListItem from './DashboardListItem'
 import DashboardListContainer from './DashboardListContainer'
 import DashboardAddApartment from './DashboardAddApartment'
 import DashboardUpdateApartment from './DashboardUpdateApartment'
+import DashboardUpdateUser from './DashboardUpdateUser'
 import Payments from './Payments'
 
 export default{
@@ -147,6 +153,7 @@ export default{
   components:{
     DashboardAddApartment,
     DashboardUpdateApartment,
+    DashboardUpdateUser,
     DashboardListItem,
     DashboardListContainer,
     Payments,
@@ -157,13 +164,15 @@ export default{
 
             addApartmentisActive:false,
             updateApartmentisActive:false,
+            updateUserisActive:false,
             apartmentListIsActive:false,
             sponsorFormIsActive:false,
             apartmentList:[],
             currentApartmentId:0,
             currentApartment:{},
             userId:this.user.id,
-            userInfo:this.user,
+            userInfo:{},
+            //user:this.user,
           }
   },
 
@@ -171,41 +180,24 @@ export default{
 
     getIndex: function(){
       axios.post("http://localhost:8000/api/user/apartments",
-      { "id":this.userId },
-      // {
-      //   headers: {
-      //   "Content-type": "application/json; charset=UTF-8",
-      //   }
-      // },
-    )
+        { "id":this.userId },
+      )
       .then(response => {
-          console.log(response)
           this.apartmentList = response.data.apartments
-          console.log(this.apartmentList)
       })
     },
 
     getUserInfo: function(){
       axios.post("http://localhost:8000/api/user/info",
-      {"id":this.userId},
-      // {
-      //   headers: {
-      //   "Content-type": "application/json; charset=UTF-8",
-      //   }
-      // },
+        { "id":this.userId },
       )
       .then(response => {
           console.log(response)
+          this.userInfo = response.data.userInfo[0]
+          console.log(this.userInfo)
       })
       .catch((e) => {
           console.log("Caught", e);
-      })
-    },
-
-    getServices:function(){
-      axios.get("http://localhost:8000/api/user/apartments/getservices",
-      ).then(response => {
-        console.log(response.data.services);
       })
     },
 
@@ -226,8 +218,15 @@ export default{
       this.toggleOffSponsor();
     },
 
+    toggleUpdateUser: function(){
+      this.updateUserisActive =!this.updateUserisActive;
+      this.toggleOffApartmentList();
+
+    },
+
     toggleApartmentList:function(){
       this.apartmentListIsActive = !this.apartmentListIsActive;
+      this.toggleOffUpdateUser();
     },
 
     toggleSponsor:function(){
@@ -248,37 +247,22 @@ export default{
       this.sponsorFormIsActive = false;
     },
 
-  },
-
-  watch:{
-    'currentApartmentId': function(){
-      console.log(this.currentApartmentId)
+    toggleOffApartmentList: function(){
+      this.apartmentListIsActive = false;
     },
 
-    'isSomethingSelected': function(){
-        this.shouldVisible = !this.isSomethingSelected
-    }
+    toggleOffUpdateUser: function(){
+      this.updateUserisActive = false;
+    },
 
   },
 
-  created() {
-    this.getServices();
-
-    console.log(this.userId)
-    console.log(this.userInfo)
-
-  },
 }
 
 
 </script>
 
 <style scoped>
-
-/* .special-column{
-  padding-left:20px;
-  padding-right:20px;
-} */
 
 .column-1, .column-3{
   /* border: 2px solid red; */
@@ -353,7 +337,7 @@ export default{
 }
 
 .unselected {
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 </style>

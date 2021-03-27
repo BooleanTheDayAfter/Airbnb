@@ -1,8 +1,8 @@
 <template >
 
-              <li class="dashboard-component-apartments-card">
+              <li class="dashboard-component-apartments-card" @click="currentApartmentId = apartmentid; sendOutApartmentId();">
 
-                  <div class="search-component-apartments-card" @click="currentApartmentId = apartmentid; sendOutApartmentId();" >
+                  <div class="search-component-apartments-card" >
 
                         <div class="search-component-apartment-img-box">
 
@@ -74,10 +74,6 @@
 
                              currentApartmentId:0,
 
-                             isThisSelected: false,
-
-                             isvisible: this.visible,
-
                            }
                    },
 
@@ -137,14 +133,6 @@
 
 <style scoped>
 
-.unselected {
-  opacity: 0.3;
-}
-
-.selected {
-  opacity: 1;
-}
-
 .dashboard-component-apartments-card{
   border:1px solid lightgrey;
   border-radius: 10px;
@@ -176,6 +164,8 @@
 
 .search-component-apartments-card{
   /* border:1px solid blue; */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   display: flex;
   width:100%;
   height:130px;

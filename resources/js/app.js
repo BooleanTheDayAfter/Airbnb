@@ -48,6 +48,7 @@ Vue.component('dashboard-list-container', require('./components/DashboardListCon
 Vue.component('dashboard-list-item', require('./components/DashboardListItem.vue').default);
 Vue.component('dashboard-add-apartment', require('./components/DashboardAddApartment.vue').default);
 Vue.component('dashboard-update-apartment', require('./components/DashboardUpdateApartment.vue').default);
+Vue.component('dashboard-update-user', require('./components/DashboardUpdateUser.vue').default);
 Vue.component('my-dashboard', require('./components/Dashboard.vue').default);
 
 
