@@ -25,8 +25,7 @@ class ApiUserInfoController extends Controller
       $user->update([
           'username' => $request['username'],
       ]);
-      //
-      //
+
       $info = UserInfo::find($user->info->id);
       $info->update([
          'fullname' => $request['fullname'],
@@ -37,8 +36,6 @@ class ApiUserInfoController extends Controller
          'address' => $request['address'],
          'fiscal_code' => $request['fiscal_code'],
       ]);
-      //
-      // return view('users.detail', compact('user', 'info'));
 
       return response()->json(compact('data','user','info'));
 

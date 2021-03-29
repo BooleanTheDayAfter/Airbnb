@@ -2,26 +2,19 @@
 
 <div class="dashboard-component-container row">
 
+      <!-- <h2>Dashboard</h2> -->
+
       <div class="column-1">
 
-            <section class="dashboard-control-container">
+        <section class="dashboard-control-container">
 
-        <h2>Dashboard</h2>
-
-        <div class="dashboard-username">
+        <!-- <div class="dashboard-username"> -->
           <!-- <b class="dashboard-font-helper">{{$user->username}}</b> · {{$user->email}} -->
-        </div>
+        <!-- </div> -->
 
         <ul class="button-list-container d-flex">
 
             <li class="dashboard-card">
-
-                <!-- <button href="{{route('user.edit')}}">
-
-                        <i class="far fa-id-card"></i>
-                        <span class="">Modifica informazioni personali</span>
-
-                </button> -->
 
                 <button v-on:click="getUserInfo(); toggleUpdateUser();">
 
@@ -32,12 +25,23 @@
 
             </li>
 
+            <li id="sp-button" class="dashboard-card">
+
+              <button v-on:click="getIndex(); toggleDisplay();">
+
+                    <i class="fas fa-house-user"></i>
+                    <span class="">Mostra tutti i miei appartamenti</span>
+
+              </button>
+
+            </li>
+
             <li class="dashboard-card">
 
                 <button v-on:click="getIndex(); toggleApartmentList()">
 
                       <i class="fas fa-house-user"></i>
-                      <span class="">I miei appartamenti</span>
+                      <span class="">Mostra tutti i miei appartamenti</span>
 
                 </button>
 
@@ -78,7 +82,7 @@
 
               <DashboardListItem v-for="(data, index) in apartmentList "
 
-                          :class="data.id == currentApartmentId ? 'selected' : 'unselected'"
+                          :class="(data.id == currentApartmentId || display) ? 'selected' : 'unselected'"
 
                           @refresh="getIndex"
                           @displayUpdate = "toggleUpdateApartment"
@@ -172,7 +176,8 @@ export default{
             currentApartment:{},
             userId:this.user.id,
             userInfo:{},
-            //user:this.user,
+            display:false,
+
           }
   },
 
@@ -255,6 +260,21 @@ export default{
       this.updateUserisActive = false;
     },
 
+    resetCurrentId: function(){
+      this.currentApartmentId = 0;
+    },
+
+    toggleDisplay:function(){
+      this.apartmentListIsActive = true;
+      this.display = !this.display;
+    }
+
+  },
+
+  watch:{
+    'currentApartmentId':function(){
+      this.display = false;
+    }
   },
 
 }
@@ -263,23 +283,25 @@ export default{
 </script>
 
 <style scoped>
-
-.column-1, .column-3{
-  /* border: 2px solid red; */
-  width:30%;
-  /* float:left; */
+.column-1{
+  width:150px;
 }
 
 .column-2{
-  /* border: 2px solid red; */
   padding-left:20px;
   padding-right:20px;
+  width:60%;
+}
+
+.column-3{
+  /* border: 2px solid red; */
   width:40%;
   /* float:left; */
 }
 
 .dashboardList-container{
   display: none;
+  /* margin-top: 10px; */
 }
 
 .dashboard-component-container{
@@ -291,7 +313,7 @@ export default{
 
 .dashboard-control-container{
   /* border:2px solid red; */
-  width:200px;
+  width:100%;
 }
 
 .button-list-container{
@@ -303,7 +325,7 @@ export default{
 .button-list-container li{
     display:flex;
     height:40px;
-    margin-top:15px;
+    margin-bottom:15px;
 }
 
 .button-list-container li  button{
@@ -311,7 +333,7 @@ export default{
       background-color: white;
       color:grey;
       border:2px solid lightgrey;
-      width:250px;
+      width:100%;
       cursor:pointer;
 }
 
@@ -322,6 +344,10 @@ export default{
 .dashboardAddApartment-container{
   /* height:100%; */
   display: none;
+}
+
+.dashboard-card button{
+  padding:5px;
 }
 
 .hide{
@@ -338,6 +364,56 @@ export default{
 
 .unselected {
   opacity: 0.7;
+}
+
+.sm-screen-button{
+  display:none;
+}
+
+.button-list-container li:nth-child(2){
+  display: none;
+}
+
+/* MEDIA QUERIES */
+@media screen and (max-width: 960px) {
+
+  .column-1 , .column-2, .column-3{
+    width:100%;
+  }
+
+  .column-2{
+    padding:0;
+  }
+
+  .button-list-container li:nth-child(2){
+    display: flex;
+  }
+
+  .button-list-container li:nth-child(3){
+    display: none;
+  }
+
+  .unselected{
+    display:none;
+  }
+
+  .dashboard-component-container{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .button-list-container{
+    width:100%;
+    flex-direction: row;
+  }
+
+  .sm-screen-button{
+    display:block;
+  }
+}
+
+@media screen and (max-width: 768px) {
+
 }
 
 </style>
