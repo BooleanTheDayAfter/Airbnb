@@ -161,9 +161,6 @@ export default{
       services:[],
       currentApartmentId:this.apartmentid,
       currentApartment:{},
-      // imageData:{},
-      // moreImageData:[],
-
     }
   },
   methods: {
@@ -177,7 +174,7 @@ export default{
       ).then(response => {
         console.log(response.data.services);
         this.servizi = response.data.services;
-    })
+      })
     },
 
     getApartment:function(){
@@ -201,9 +198,7 @@ export default{
         this.services = response.data.services.map(function(el){
           return el.id
         })
-
       })
-
     },
 
     update: function() {
@@ -221,7 +216,6 @@ export default{
         'bathrooms' : this.bathrooms,
         'metri_quadrati' : this.metri_quadrati,
         'services' : this.services,
-
       });
 
       let formData = new FormData();
@@ -242,41 +236,15 @@ export default{
 
       axios.post('http://localhost:8000/api/user/apartments/update',
               formData, config,
-
       ).then(response => {
         console.log(response);
         this.sendOutIndexRefresh();
-
-
       }).catch(error => {
         if (error.response.status === 422) {
           this.errors = error.response.data.errors || {};
         }
       });
     },
-
-    // uploadImage:function(){
-    //   this.imageData = document.getElementById('cover').files[0];
-    //   console.log(this.imageData)
-    //
-    // },
-    //
-    // uploadMoreImages:function(){
-    //   this.moreImageData = document.getElementById('images').files;
-    //   console.log(this.moreImageData)
-    //
-    // },
-
-    // processFile:function(event) {
-    //   this.image = this.$refs.file.files[0];
-    //   const formData = new FormData();
-    //   formData.append("cover", this.image);
-    //
-    //   console.log(this.$refs.file.files[0]);
-    //
-    //   console.log(this.image);
-    // }
-
   },
 
   watch:{
@@ -284,8 +252,6 @@ export default{
       this.getApartment();
     }
   },
-  //
-  // },
 
   created(){
     this.getServices();
@@ -294,7 +260,6 @@ export default{
   mounted(){
     this.fields.user_id = this.userId;
   },
-
 }
 
 </script>
@@ -302,12 +267,11 @@ export default{
 <style scoped>
 
   .dashboardUpdateApartment-form-container{
-
     font-size: 12px;
     border:1px solid lightgrey;
     border-radius: 15px;
     padding:20px;
-
+    background-color: white;
   }
 
   .dashboardUpdateApartment-form-container .my-form{
@@ -327,6 +291,12 @@ export default{
   .dashboardUpdateApartment-form-container input{
     border-radius: 5px;
     border:1px solid lightgrey;
+  }
+
+  @media screen and (max-width: 960px) {
+    .dashboardUpdateApartment-form-container{
+      background-color: rgb(255,255,255,0.5)
+    }
   }
 
 </style>

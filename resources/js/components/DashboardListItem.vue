@@ -51,192 +51,169 @@
 
 <script>
 
-          export default{
-            name: "DashboardListItem",
+  export default{
+    name: "DashboardListItem",
 
-            props:['title' ,
-                   'description',
-                   'rooms',
-                   'beds',
-                   'bathrooms',
-                   'metri_quadrati',
-                   'price',
-                   'link',
-                   'coverimg',
-                   'description',
-                   'activestar',
-                   'apartmentid',
+    props:['title' ,
+            'description',
+            'rooms',
+            'beds',
+            'bathrooms',
+            'metri_quadrati',
+            'price',
+            'link',
+            'coverimg',
+            'description',
+            'activestar',
+            'apartmentid',
+          ],
 
-                   ],
+    data(){
+            return{
+             currentApartmentId:0,
+            }
+    },
 
-                   data(){
-                           return{
+    methods:{
 
-                             currentApartmentId:0,
+      sendOutApartmentId:function(event){
+        this.$emit('clicked', this.currentApartmentId)
+      },
 
-                           }
-                   },
+      sendOutDisplayUpdate:function(event){
+        this.$emit('displayUpdate',this.isDisplayed)
+      },
 
-                   methods:{
+      sendOutDisplaySponsor:function(event){
+        this.$emit('displaySponsor',this.isDisplayed)
+      },
 
-                     sendOutApartmentId:function(event){
-                       this.$emit('clicked', this.currentApartmentId)
-                     },
+      sendOutIndexRefresh:function(){
+        this.$emit('refresh')
+      },
 
-                     sendOutDisplayUpdate:function(event){
-                       this.$emit('displayUpdate',this.isDisplayed)// ,this.isDisplayed
-                     },
-
-                     sendOutDisplaySponsor:function(event){
-                       this.$emit('displaySponsor',this.isDisplayed)// ,this.isDisplayed
-                     },
-
-                     sendOutIndexRefresh:function(){
-                       this.$emit('refresh')
-                     },
-
-                     deleteApartment: function(){
-                       axios.post("http://localhost:8000/api/user/apartments/delete",
-                       {
-                         'apartmentId':this.currentApartmentId,
-
-                       },
-                       {
-                         headers: {
-                         "Content-type": "application/json; charset=UTF-8",
-                         }
-                       },
-                     )
-
-                     .then(response => {
-                         console.log(response)
-                         this.sendOutIndexRefresh();
-                     },
-                     (err) => {
-                       console.log("Err", err);
-                     })
-                     .catch((e) => {
-                       console.log("Caught", e);
-                      }
-                    )
-
-
-                  }
-
-                },
-
-                };
-
-            // };
+      deleteApartment: function(){
+        axios.post("http://localhost:8000/api/user/apartments/delete",
+          { 'apartmentId':this.currentApartmentId,},
+          {
+            headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            }
+          },
+        )
+        .then(response => {
+            console.log(response)
+            this.sendOutIndexRefresh();
+        },
+        (err) => {
+          console.log("Err", err);
+        })
+        .catch((e) => {
+          console.log("Caught", e);
+        })
+      }
+    },
+  };
 
 </script>
 
 <style scoped>
 
-.dashboard-component-apartments-card{
-  border:1px solid lightgrey;
-  border-radius: 10px;
-  margin-bottom:10px;
-  display: flex;
-  flex-direction: column;
-  width:100%;
-  min-width:380px;
-  height:170px;
-  padding:10px;
-  /* border-bottom:1px solid lightgrey; */
+  .dashboard-component-apartments-card{
+    border:1px solid lightgrey;
+    border-radius: 10px;
+    margin-bottom:10px;
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    min-width:380px;
+    height:170px;
+    padding:10px;
+  }
 
-}
+  .dashboard-component-apartments-card:hover{
+    background-color: #DDCCCC;
+    cursor:pointer;
+  }
 
-.dashboard-list-buttons-container ul{
-  /* border:1px solid red; */
-  /* border-top:1px solid pink; */
-  height:20px;
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  .dashboard-list-buttons-container ul{
+    height:20px;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-}
+  .dashboard-list-buttons-container ul li button:hover{
+    cursor:pointer;
+  }
 
-.dashboard-list-buttons-container ul li button:hover{
-  cursor:pointer;
-}
+  .search-component-apartments-card{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    width:100%;
+    height:130px;
+    padding:10px;
+    border-bottom:1px solid #968388;
+    position:relative;
+  }
 
-.search-component-apartments-card{
-  /* border:1px solid blue; */
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  display: flex;
-  width:100%;
-  height:130px;
-  padding:10px;
-  border-bottom:1px solid lightgrey;
-  position:relative;
-}
+  .search-component-apartment-img-box{
+    position: relative;
+    min-width:130px;
+    max-width:130px;
+    height:110px;
+    border-radius:10px;
+    overflow:hidden;
+  }
 
-.search-component-apartments-card:hover{
-  background-color: #e1f4f5;
-  cursor:pointer;
-}
+  .search-component-apartment-img-box img{
+    height:100%;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%)
+  }
 
-.search-component-apartment-img-box{
-  /* border:1px solid brown; */
-  position: relative;
-  min-width:130px;
-  max-width:130px;
-  height:110px;
-  border-radius:10px;
-  overflow:hidden;
-}
+  .search-component-apartment-features{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding:5px;
+    margin-left: 20px;
+  }
 
-.search-component-apartment-img-box img{
-  height:100%;
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%, -50%)
-}
+  .tinies-container{
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+  }
 
-.search-component-apartment-features{
-  width:100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding:5px;
-  margin-left: 20px;
-}
+  .apartment-description-search-component{
+    font-size: 15px;
+    height:75px;
+    width:100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
 
-.tinies-container{
-  width:100%;
-  display: flex;
-  justify-content: space-between;
-  list-style: none;
-}
+  .price-tag-search-component{
+    height:30px;
+  }
 
+  .price-tag-search-component{
+    display:flex;
+    justify-content: flex-end;
+  }
 
-.apartment-description-search-component{
-  font-size: 15px;
-  height:75px;
-  width:100%;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.price-tag-search-component{
-  height:30px;
-}
-
-.price-tag-search-component{
-  display:flex;
-  justify-content: flex-end;
-}
-
-.search-component-sponsored-star{
-  position:absolute;
-  color:#FF385C;
-  right:15px;
-  top:10px;
-}
-
+  .search-component-sponsored-star{
+    position:absolute;
+    color:#FF385C;
+    right:15px;
+    top:10px;
+  }
 
 </style>

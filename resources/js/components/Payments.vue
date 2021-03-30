@@ -1,5 +1,5 @@
 <template>
-     <!-- <div id="payments" class="container"> -->
+
         <div class="payment-container">
 
 
@@ -30,76 +30,64 @@
 
                         </div>
 
-
-
-
                         <div class="credit-card-container p-el">
                             <label>Credit Card Number</label>
                             <div id="creditCardNumber" class="form-control"></div>
                         </div>
 
+                        <div class="ed-cvv-container p-el">
 
+                            <div class="ed-container">
 
-                            <div class="ed-cvv-container p-el">
-
-                                <div class="ed-container">
-                                    <label>Expire Date</label>
-                                    <div id="expireDate" class="form-control"></div>
-                                </div>
-
-                                <div class="cvv-container">
-                                    <label>CVV</label>
-                                    <div id="cvv" class="form-control"></div>
-                                </div>
+                                <label>Expire Date</label>
+                                <div id="expireDate" class="form-control"></div>
 
                             </div>
 
-                            <div class="buttons-container p-el"   v-bind:class = "(nonce)?'hide':'display' ">
+                            <div class="cvv-container">
 
-                                  <button class="credit-card-button" @click.prevent="payWithCreditCard">Pay with Credit Card</button>
-
-                                  <div id="paypalButton"></div>
-
-                            </div>
-
-                            <div class="buttons-container p-el">
-
-                                  <div class="alert alert-success" v-if="nonce" v-bind:class = "(isPaymentFinalized)?'hide':'display' ">
-                                      Successfully generated nonce. Waiting for reply...
-                                  </div>
-
-                                  <div class="alert alert-danger" v-if="error">
-                                      {{ error }}
-                                  </div>
+                                <label>CVV</label>
+                                <div id="cvv" class="form-control"></div>
 
                             </div>
 
-                            <div class="" v-if="nonce" v-bind:class = "(isPaymentFinalized)?'display':'hide' ">
+                        </div>
 
-                              <button onclick="javascript:history.go(-1)" class="alert success" >
+                        <div class="buttons-container p-el"   v-bind:class = "(nonce)?'hide':'display' ">
+
+                              <button class="credit-card-button" @click.prevent="payWithCreditCard">Pay with Credit Card</button>
+
+                              <div id="paypalButton"></div>
+
+                        </div>
+
+                        <div class="buttons-container p-el">
+
+                              <div class="alert alert-success" v-if="nonce" v-bind:class = "(isPaymentFinalized)?'hide':'display' ">
+                                  Successfully generated nonce. Waiting for reply...
+                              </div>
+
+                              <div class="alert alert-danger" v-if="error">
+                                  {{ error }}
+                              </div>
+
+                        </div>
+
+                        <div class="" v-if="nonce" v-bind:class = "(isPaymentFinalized)?'display':'hide' ">
+
+                              <button @click="" class="alert success" >
                                   Success!
                               </button>
 
-                                  <div class="sponsored" >
-                                        <span> <em>Appartamento sponsorizzato fino al:{{expireDate}}</em> </span>
-                                  </div>
+                              <div class="sponsored" >
+                                    <span> <em>Appartamento sponsorizzato fino al:{{expireDate}}</em> </span>
+                              </div>
 
-                            </div>
+                        </div>
 
                     </form>
 
-
-
-                    <!-- <form class="" :action="homepage" method="post">
-
-                    <input type="submit" class="alert success" value="Success!Torna ai tuoi appartamenti">
-
-
-                    </form> -->
-
-
         </div>
-    <!-- </div> -->
 
 </template>
 <script>
@@ -129,7 +117,7 @@ export default {
     },
     methods: {
         sendOutIndexRefresh:function(){
-          this.$emit('refresh')
+          this.$emit('refresh');
         },
 
         getSponsorTypes:function(){
@@ -167,7 +155,7 @@ export default {
                     this.error = err.message;
                 })
             }
-        }
+        },
     },
 
     watch:{
@@ -313,12 +301,12 @@ export default {
   margin-left: 10px;
 }
 .checkbox-container{
-display:flex;
-flex-direction: column;
-border:2px solid pink;
-border-radius: 10px;
-padding:10px;
-min-width: 173px;
+  display:flex;
+  flex-direction: column;
+  border:2px solid pink;
+  border-radius: 10px;
+  padding:10px;
+  min-width: 173px;
 }
 
 .input-amount-container{
@@ -335,7 +323,6 @@ min-width: 173px;
   border: 1px solid lightgray;
   border-radius: 10px;
   font-size: 12px;
-
 }
 
 .ed-cvv-container{

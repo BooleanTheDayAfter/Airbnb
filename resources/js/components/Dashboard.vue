@@ -18,7 +18,7 @@
 
                 <button v-on:click="getUserInfo(); toggleUpdateUser();">
 
-                      <i class="fas fa-house-user"></i>
+                      <!-- <i class="fa fa-user-circle" aria-hidden="true"></i> -->
                       <span class="">Info Personali</span>
 
                 </button>
@@ -29,7 +29,7 @@
 
               <button v-on:click="getIndex(); toggleDisplay();">
 
-                    <i class="fas fa-house-user"></i>
+                    <!-- <i class="fas fa-house-user"></i> -->
                     <span class="">Mostra tutti i miei appartamenti</span>
 
               </button>
@@ -40,7 +40,7 @@
 
                 <button v-on:click="getIndex(); toggleApartmentList()">
 
-                      <i class="fas fa-house-user"></i>
+                      <!-- <i class="fas fa-house-user"></i> -->
                       <span class="">Mostra tutti i miei appartamenti</span>
 
                 </button>
@@ -51,7 +51,7 @@
 
                 <button v-on:click="toggleAddApartment()">
 
-                      <i class="fas fa-plus-circle"></i>
+                      <!-- <i class="fas fa-plus-circle"></i> -->
                       <span class="">Aggiungi appartamento</span>
 
                 </button>
@@ -62,7 +62,9 @@
 
                 <button v-on:click="getSponsorTypes()">
 
-                        <i class="fas fa-plus-circle"></i>
+                  <!-- <i class="fa fa-line-chart" aria-hidden="true"></i> -->
+
+
                         <span class="">Statistiche</span>
 
                 </button>
@@ -131,7 +133,9 @@
 
             <section class="hide" v-bind:class="{ active: sponsorFormIsActive }">
 
-                    <Payments @refresh="getIndex()" :appartamento ="currentApartmentId"/>
+                    <Payments :appartamento ="currentApartmentId"
+                              @refresh="getIndex()"
+                              />
 
             </section>
 
@@ -177,7 +181,6 @@ export default{
             userId:this.user.id,
             userInfo:{},
             display:false,
-
           }
   },
 
@@ -226,12 +229,18 @@ export default{
     toggleUpdateUser: function(){
       this.updateUserisActive =!this.updateUserisActive;
       this.toggleOffApartmentList();
-
+      this.toggleOffSponsor();
+      this.toggleOffUpdateApartment();
+      this.toggleOffAddApartment();
     },
 
     toggleApartmentList:function(){
       this.apartmentListIsActive = !this.apartmentListIsActive;
       this.toggleOffUpdateUser();
+      this.toggleOffSponsor();
+      this.toggleOffUpdateApartment();
+      this.toggleOffAddApartment();
+
     },
 
     toggleSponsor:function(){
@@ -268,7 +277,6 @@ export default{
       this.apartmentListIsActive = true;
       this.display = !this.display;
     }
-
   },
 
   watch:{
@@ -276,13 +284,15 @@ export default{
       this.display = false;
     }
   },
-
 }
-
 
 </script>
 
 <style scoped>
+
+.column-1, .column-2, .column-3{
+  background-color:rgba(255, 255, 255, 0.9);
+}
 .column-1{
   width:150px;
 }
@@ -294,14 +304,11 @@ export default{
 }
 
 .column-3{
-  /* border: 2px solid red; */
   width:40%;
-  /* float:left; */
 }
 
 .dashboardList-container{
   display: none;
-  /* margin-top: 10px; */
 }
 
 .dashboard-component-container{
@@ -309,10 +316,14 @@ export default{
   display:flex;
   width:100%;
   height:80vh;
+  background-image: url('../../images/Airbnb-Logo-Grey.gif');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-color:rgba(255, 255, 255);
 }
 
 .dashboard-control-container{
-  /* border:2px solid red; */
   width:100%;
 }
 
@@ -323,26 +334,25 @@ export default{
 }
 
 .button-list-container li{
-    display:flex;
-    height:40px;
-    margin-bottom:15px;
+  display:flex;
+  height:60px;
+  margin-bottom:15px;
 }
 
 .button-list-container li  button{
-      border-radius: 5px;
-      background-color: white;
-      color:grey;
-      border:2px solid lightgrey;
-      width:100%;
-      cursor:pointer;
+  border-radius: 10px;
+  background-color: white;
+  color:grey;
+  border:1px solid lightgrey;
+  width:100%;
+  cursor:pointer;
 }
 
 .button-list-container li  button:hover{
-  background-color: #e1f4f5;
+  background-color: #DDCCCC;
 }
 
 .dashboardAddApartment-container{
-  /* height:100%; */
   display: none;
 }
 
@@ -360,6 +370,7 @@ export default{
 
 .selected{
   border:2px solid #d70466;
+  background-color: white;
 }
 
 .unselected {
@@ -393,6 +404,10 @@ export default{
     display: none;
   }
 
+  .button-list-container li {
+    padding: 0 5px 5px;
+  }
+
   .unselected{
     display:none;
   }
@@ -410,10 +425,6 @@ export default{
   .sm-screen-button{
     display:block;
   }
-}
-
-@media screen and (max-width: 768px) {
-
 }
 
 </style>

@@ -58,7 +58,8 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  font-size: 16px;
+  font-size: 13px;
+  color: #635457;
 }
 
 nav {
@@ -80,6 +81,10 @@ main {
 }
 
 @media screen and (max-width: 500px) {
+  body {
+    font-size: 10px;
+  }
+
   .container {
     padding-right: 10px;
     padding-left: 10px;

@@ -158,8 +158,6 @@ export default{
       bathrooms:0,
       metri_quadrati:0,
       services:[],
-      // imageData:{},
-      // moreImageData:[],
 
     }
   },
@@ -224,38 +222,7 @@ export default{
         }
       });
     },
-
-    // uploadImage:function(){
-    //   this.imageData = document.getElementById('cover').files[0];
-    //   console.log(this.imageData)
-    //
-    // },
-    //
-    // uploadMoreImages:function(){
-    //   this.moreImageData = document.getElementById('images').files;
-    //   console.log(this.moreImageData)
-    //
-    // },
-
-    // processFile:function(event) {
-    //   this.image = this.$refs.file.files[0];
-    //   const formData = new FormData();
-    //   formData.append("cover", this.image);
-    //
-    //   console.log(this.$refs.file.files[0]);
-    //
-    //   console.log(this.image);
-    // }
-
   },
-
-  // watch:{
-  //   'services':function(){
-  //     this.fields.services=this.services
-  //     console.log(this.fields.services);
-  //   }
-  //
-  // },
 
   created(){
     this.getServices();
@@ -272,12 +239,11 @@ export default{
 <style scoped>
 
   .dashboardAddApartment-form-container{
-
+    background-color: white;
     font-size: 12px;
     border:1px solid lightgrey;
     border-radius: 15px;
     padding:20px;
-
   }
 
   .dashboardAddApartment-form-container .my-form{
@@ -299,6 +265,10 @@ export default{
     border:1px solid lightgrey;
   }
 
-
+  @media screen and (max-width: 960px) {
+    .dashboardAddApartment-form-container{
+      background-color: rgb(255,255,255,0.5)
+    }
+  }
 
 </style>

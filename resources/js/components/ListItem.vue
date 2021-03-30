@@ -5,7 +5,6 @@
                   <div class="search-component-apartment-img-box">
 
                       <img :src="coverimg" alt="img">
-                      <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Bodiam-castle-10My8-1197.jpg"> -->
 
                   </div>
 
@@ -55,8 +54,7 @@
                    'coverimg',
                    'description',
                    'activestar',
-
-                   ],
+                  ],
             };
 
 </script>
@@ -110,9 +108,8 @@
   list-style: none;
 }
 
-
 .apartment-description-search-component{
-  font-size: 15px;
+  font-size: 13px;
   height:75px;
   width:100%;
   overflow:hidden;
@@ -134,9 +131,5 @@
   right:15px;
   top:10px;
 }
-
-/* .dActive{
-  display: block;
-} */
 
 </style>

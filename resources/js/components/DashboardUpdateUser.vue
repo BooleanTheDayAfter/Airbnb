@@ -79,15 +79,6 @@
 
                       </div>
 
-                      <!-- E-MAIL -->
-                      <!-- <div class="my-form">
-
-                          <label for="email">Email</label>
-                          <input type="text" class="my-form-input" name="email" id="email" v-model="email" required/>
-                          <div v-if="errors && errors.email" class="text-danger">{{ errors.email[0] }}</div>
-
-                      </div> -->
-
                       <!-- SUBMIT -->
                       <div class="my-form">
 
@@ -114,9 +105,7 @@ export default{
       userId:this.user.id,
       userInfoUp:{},
       userUp:{},
-      //fields: {},
       errors: {},
-      // servizi: [],
       username:"",
       fullname:"",
       birthdate:"",
@@ -125,7 +114,6 @@ export default{
       p_iva:"",
       phone_number:0,
       sex:"",
-      //email:"",
     }
   },
   methods: {
@@ -146,39 +134,7 @@ export default{
         'p_iva': this.p_iva,
         'phone_number': this.phone_number,
         'sex':this.sex,
-        //'email':this.email,
-
       };
-
-      //const json = JSON.stringify({
-        // 'apartment_id': this.apartmentid,
-        // 'user_id': this.userId,
-        // 'title' : this.title,
-        // 'price' : this.price,
-        // 'city' : this.city,
-        // 'address' : this.address,
-        // 'description' : this.description,
-        // 'beds' : this.beds,
-        // 'rooms' : this.rooms,
-        // 'bathrooms' : this.bathrooms,
-        // 'metri_quadrati' : this.metri_quadrati,
-        // 'services' : this.services,
-
-      //});
-
-      // let formData = new FormData();
-      //
-      // formData.append('cover', document.getElementById('updateCover').files[0]);
-      // formData.append('data', json);
-      //
-      // for( var i = 0; i < document.getElementById('updateImages').files.length; i++ ){
-      //   let image = document.getElementById('updateImages').files[i];
-      //   formData.append('images[' + i + ']', image);
-      // }
-      //
-      // let config = { headers: {'Content-Type': 'multipart/form-data'} }
-      //
-      // console.log(formData.values)
 
       this.errors = {};
 
@@ -187,14 +143,12 @@ export default{
       )
       .then(response => {
         console.log(response);
-        //this.sendOutIndexRefresh();
       }).catch(error => {
         if (error.response.status === 422) {
           this.errors = error.response.data.errors || {};
         }
       });
     },
-
   },
 
   watch:{
@@ -215,7 +169,6 @@ export default{
       this.email = this.user.email;
     }
   },
-
 }
 
 </script>
@@ -223,12 +176,10 @@ export default{
 <style scoped>
 
   .dashboardUpdateApartment-form-container{
-
     font-size: 12px;
     border:1px solid lightgrey;
     border-radius: 15px;
     padding:20px;
-
   }
 
   .dashboardUpdateApartment-form-container .my-form{
