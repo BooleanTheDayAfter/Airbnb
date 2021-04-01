@@ -98,7 +98,10 @@
 * {box-sizing: border-box;}
 
 .container {
-  position:relative;
+  position:absolute;
+  z-index:9998;
+  top:0;
+  right:0;
   display: block;
   margin:auto;
   text-align: center;

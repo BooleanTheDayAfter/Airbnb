@@ -50,7 +50,7 @@
         itemsToShow: this.numofitems,
         centerMode: false,
         infiniteScroll:true,
-        // autoPlay: true,
+        autoPlay: true,
         playSpeed: 3500,
       },
 
@@ -61,7 +61,6 @@
   mounted(){
     console.log(this.imgs.map(el=>el.path))
     console.log(this.images)
-    // element.services.map(el=>el.name))
   }
 }
 </script>
@@ -69,41 +68,29 @@
 <style scoped>
 
 .hooper{
-  /* border:5px solid black; */
-  height:320px;;
+  height:400px;;
   width:100%;
 }
 
- .hooper-slide{
- position:relative;
- /* border:2px solid red; */
- /* margin-right:10px;
- margin-left:10px; */
- /* height:350px;
- width:30%; */
+.hooper-slide{
+  height:400px;
+  width:100%;
 }
-
-/* .img-container-hooper{
-  position:relative;
-  border:2px solid red;
-  margin-right:10px;
-  margin-left:10px;
-  height:350px;
-  width:500px;
-} */
-
 
 img{
-
-  padding:10px;
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform: translate(-50%, -50%);
+  object-fit: cover;
+  object-position: 50% 50%;
   width:100%;
-  overflow:hidden;
-  border-radius:15px;
+  height:400px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
 
+@media screen and (max-width: 780px) {
+  img{
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
 }
 
 </style>

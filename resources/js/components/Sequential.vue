@@ -161,5 +161,13 @@ export default{
     transform:translate(-50%, -50%);
 }
 
+.sponsored-icon {
+  color: #FF385C;
+  font-size: 1.6em;
+  position: absolute;
+  top: 5%;
+  right: 8%;
+}
+
 
 </style>

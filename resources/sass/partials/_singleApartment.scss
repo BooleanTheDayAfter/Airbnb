@@ -1,0 +1,133 @@
+// APARTMENT PHOTOS
+.apartment-details{
+  margin-top:150px;
+  width:100%;
+}
+
+.text-box{
+  margin-top: 20px;
+}
+
+.show-photo-container{
+  margin-top: 20px;
+  width:100%;
+  display: flex;
+  height:400px;
+  margin-bottom: 50px;
+
+  #hooper{
+    width:50%;
+    padding-right: 10px;
+  }
+
+  .show-photo-collage{
+    width:50%;
+    display:flex;
+    flex-wrap:wrap;
+
+    .image-frame{
+      width:50%;
+      height:50%;
+    }
+
+      img{
+        height:200px;
+        width:100%;
+        object-fit: cover;
+        object-position: 50% 50%;
+      }
+
+      .im-tr{
+        border-top-right-radius: 15px;
+        padding-bottom:5px;
+        padding-left: 5px;
+      }
+
+      .im-br{
+        padding-top: 5px;
+        border-bottom-right-radius: 15px;
+        padding-left: 5px;
+      }
+
+      .im-tl{
+        padding-bottom:5px;
+        padding-right: 5px;
+      }
+
+      .im-bl{
+        padding-top:5px;
+        padding-right: 5px;
+      }
+
+  }
+}
+
+// APARTMENT INFOS
+.my-apartment-info-container{
+  display: flex;
+  height:400px;
+}
+
+.services-list{
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  justify-content:space-between;
+
+  ul{
+    list-style: none;
+    display:flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    li{
+      text-align:center;
+      min-width: 100px;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+  }
+  .service-list-low-section{
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position:relative;
+  }
+}
+
+.line-separator {
+  height: 1px;
+  border: 1px solid lightgrey;
+  width: 100%;
+}
+
+// APARTMENT MAP POSITION
+.apt-position {
+  padding: 2em 0;
+}
+
+.apt-map-box {
+  border: 2px solid black;
+  height: 480px;
+  width: 100%;
+}
+.apt-map-box img {
+  height: 100%;
+  width: 100%;
+}
+
+// MEDIAQUERIES
+@media screen and (max-width: 780px) {
+
+  .show-photo-container .show-photo-collage{
+    display:none;
+  }
+
+  .show-photo-container #hooper{
+    width:100%;
+    padding-right: 0px;
+    justify-content: center;
+  }
+
+}
